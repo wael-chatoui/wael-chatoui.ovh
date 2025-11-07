@@ -1,0 +1,88 @@
+
+> wael-chatoui@0.1.0 dev
+> next dev
+
+   ▲ Next.js 16.0.1 (Turbopack)
+   - Local:        http://localhost:3000
+   - Network:      http://10.81.93.8:3000
+
+ ✓ Starting...
+ ✓ Ready in 796ms
+ ○ Compiling / ...
+ GET / 200 in 3.9s (compile: 3.6s, render: 360ms)
+ GET / 200 in 129ms (compile: 21ms, render: 108ms)
+ ⚠ Cross origin request detected from 127.0.0.1 to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+ ✓ Compiled in 189ms
+ ✓ Compiled in 92ms
+ GET / 200 in 662ms (compile: 228ms, render: 435ms)
+ GET /expertise 404 in 992ms (compile: 890ms, render: 102ms)
+ GET /expertise 404 in 162ms (compile: 11ms, render: 151ms)
+ GET / 200 in 65ms (compile: 6ms, render: 58ms)
+ ✓ Compiled in 36ms
+ ✓ Compiled in 33ms
+ ✓ Compiled in 54ms
+ GET / 200 in 307ms (compile: 88ms, render: 218ms)
+ GET / 200 in 111ms (compile: 10ms, render: 101ms)
+ ✓ Compiled in 58ms
+ GET / 200 in 398ms (compile: 125ms, render: 273ms)
+ GET / 200 in 126ms (compile: 12ms, render: 113ms)
+ ✓ Compiled in 31ms
+ ✓ Compiled in 36ms
+ ✓ Compiled in 30ms
+ GET / 200 in 267ms (compile: 88ms, render: 179ms)
+ GET / 200 in 56ms (compile: 11ms, render: 46ms)
+ GET / 200 in 51ms (compile: 14ms, render: 38ms)
+ GET / 200 in 98ms (compile: 17ms, render: 80ms)
+ GET / 200 in 47ms (compile: 7ms, render: 40ms)
+ GET / 200 in 117ms (compile: 16ms, render: 101ms)
+ GET / 200 in 99ms (compile: 28ms, render: 71ms)
+ GET / 200 in 52ms (compile: 8ms, render: 43ms)
+ ✓ Compiled in 50ms
+ GET / 200 in 365ms (compile: 88ms, render: 277ms)
+ ✓ Compiled in 60ms
+ GET /expertise 200 in 794ms (compile: 690ms, render: 103ms)
+ ✓ Compiled in 37ms
+ GET / 200 in 416ms (compile: 147ms, render: 269ms)
+ GET / 200 in 424ms (compile: 248ms, render: 176ms)
+ ✓ Compiled in 24ms
+ ✓ Compiled in 62ms
+ GET / 200 in 70ms (compile: 35ms, render: 35ms)
+ ✓ Compiled in 25ms
+ GET / 200 in 199ms (compile: 48ms, render: 152ms)
+ GET /expertise 200 in 402ms (compile: 274ms, render: 128ms)
+ GET / 200 in 102ms (compile: 8ms, render: 94ms)
+ GET / 200 in 85ms (compile: 5ms, render: 80ms)
+ GET / 200 in 81ms (compile: 5ms, render: 75ms)
+ GET /expertise 200 in 33ms (compile: 6ms, render: 27ms)
+ ✓ Compiled in 191ms
+ GET /expertise 200 in 299ms (compile: 53ms, render: 247ms)
+ ✓ Compiled in 36ms
+ GET / 200 in 252ms (compile: 90ms, render: 163ms)
+ GET /expertise 200 in 165ms (compile: 84ms, render: 81ms)
+ GET / 200 in 39ms (compile: 7ms, render: 32ms)
+ GET /expertise 200 in 174ms (compile: 7ms, render: 167ms)
+ GET / 200 in 39ms (compile: 6ms, render: 32ms)
+ GET /expertise 200 in 47ms (compile: 5ms, render: 42ms)
+ ✓ Compiled in 44ms
+ ✓ Compiled in 35ms
+ ✓ Compiled in 38ms
+ ✓ Compiled in 36ms
+ ✓ Compiled in 37ms
+ ✓ Compiled in 40ms
+ ✓ Compiled in 76ms
+ ✓ Compiled in 43ms
+ ✓ Compiled in 38ms
+ ✓ Compiled in 27ms
+ ✓ Compiled in 81ms
+ ✓ Compiled in 30ms
+ ✓ Compiled in 39ms
+ ✓ Compiled in 37ms
+ ✓ Compiled in 29ms
+ ✓ Compiled in 94ms
+ GET /expertise 200 in 292ms (compile: 76ms, render: 216ms)
+ GET /expertise 200 in 116ms (compile: 14ms, render: 103ms)
+   Reload env: .env.local
+ GET /expertise 200 in 120ms (compile: 47ms, render: 73ms)
+   Reload env: .env.local
+ GET /expertise 200 in 448ms (compile: 401ms, render: 47ms)
