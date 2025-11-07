@@ -1,0 +1,118 @@
+-- ============================================================
+-- 🧠 PORTFOLIO DATABASE SCHEMA (for Supabase / PostgreSQL)
+-- Author: Wael Chatoui
+-- ============================================================
+
+-- Drop tables if they exist (for clean redeploys)
+DROP TABLE IF EXISTS hackathon_skills CASCADE;
+DROP TABLE IF EXISTS experience_skills CASCADE;
+DROP TABLE IF EXISTS project_skills CASCADE;
+DROP TABLE IF EXISTS hackathons CASCADE;
+DROP TABLE IF EXISTS professional_experiences CASCADE;
+DROP TABLE IF EXISTS side_projects CASCADE;
+DROP TABLE IF EXISTS skills CASCADE;
+
+-- ============================================================
+-- 🧩 SKILLS
+-- ============================================================
+
+CREATE TABLE skills (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(100) UNIQUE NOT NULL,
+  category VARCHAR(100),           -- e.g. "Frontend", "Backend", "DevOps"
+  level VARCHAR(50),               -- e.g. "Beginner", "Intermediate", "Expert"
+  icon_url TEXT,                   -- link to image in bucket
+  created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- ============================================================
+-- 🏆 HACKATHONS
+-- ============================================================
+
+CREATE TABLE hackathons (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  organized_by VARCHAR(255),
+  start_date DATE,
+  end_date DATE,
+  location VARCHAR(255),
+  description TEXT,
+  image_url TEXT,                  -- link to bucket (Supabase storage)
+  github_link TEXT,
+  project_link TEXT,               -- optional demo or article link
+  role VARCHAR(100),               -- e.g. "Frontend Developer", "Team Lead"
+  team_size INT,
+  created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Junction table for many-to-many relation between hackathons and skills
+CREATE TABLE hackathon_skills (
+  hackathon_id INT REFERENCES hackathons(id) ON DELETE CASCADE,
+  skill_id INT REFERENCES skills(id) ON DELETE CASCADE,
+  PRIMARY KEY (hackathon_id, skill_id)
+);
+
+-- ============================================================
+-- 💼 PROFESSIONAL EXPERIENCES
+-- ============================================================
+
+CREATE TABLE professional_experiences (
+  id SERIAL PRIMARY KEY,
+  company_name VARCHAR(255) NOT NULL,
+  role VARCHAR(255) NOT NULL,
+  start_date DATE NOT NULL,
+  end_date DATE,
+  location VARCHAR(255),
+  description TEXT,
+  image_url TEXT,                  -- company logo
+  website TEXT,
+  github_link TEXT,                -- optional (e.g. public repos)
+  created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Junction table for many-to-many relation between experiences and skills
+CREATE TABLE experience_skills (
+  experience_id INT REFERENCES professional_experiences(id) ON DELETE CASCADE,
+  skill_id INT REFERENCES skills(id) ON DELETE CASCADE,
+  PRIMARY KEY (experience_id, skill_id)
+);
+
+-- ============================================================
+-- 🚀 SIDE PROJECTS
+-- ============================================================
+
+CREATE TABLE side_projects (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  description TEXT,
+  github_link TEXT,
+  live_link TEXT,                  -- optional (demo / website)
+  image_url TEXT,                  -- stored in Supabase bucket
+  featured BOOLEAN DEFAULT FALSE,  -- for homepage highlighting
+  created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Junction table for many-to-many relation between projects and skills
+CREATE TABLE project_skills (
+  project_id INT REFERENCES side_projects(id) ON DELETE CASCADE,
+  skill_id INT REFERENCES skills(id) ON DELETE CASCADE,
+  PRIMARY KEY (project_id, skill_id)
+);
+
+-- ============================================================
+-- 📦 NOTES
+-- ============================================================
+-- 1️⃣ All images are stored in a Supabase bucket:
+--     portfolio-media/
+--       ├── hackathons/{id or slug}.webp
+--       ├── experiences/{id or slug}.webp
+--       ├── projects/{id or slug}.webp
+--       └── skills/{skill_name}.svg
+--
+-- 2️⃣ You can safely use SELECT queries via Supabase client (read-only).
+-- 3️⃣ Foreign keys are set to CASCADE for easy cleanup on delete.
+-- 4️⃣ Timestamps help you order content in your Next.js app (e.g. ORDER BY created_at DESC).
+--
+-- ============================================================
+
+-- ✅ Done.
