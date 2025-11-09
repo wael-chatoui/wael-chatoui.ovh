@@ -132,6 +132,7 @@ export type Database = {
           id: number
           image_url: string | null
           location: string | null
+          project_name: string | null
           role: string
           start_date: string
           website: string | null
@@ -145,6 +146,7 @@ export type Database = {
           id?: number
           image_url?: string | null
           location?: string | null
+          project_name?: string | null
           role: string
           start_date: string
           website?: string | null
@@ -158,6 +160,7 @@ export type Database = {
           id?: number
           image_url?: string | null
           location?: string | null
+          project_name?: string | null
           role?: string
           start_date?: string
           website?: string | null
@@ -235,6 +238,7 @@ export type Database = {
           id: number
           level: string | null
           name: string
+          skill_link: string | null
         }
         Insert: {
           category?: string | null
@@ -243,6 +247,7 @@ export type Database = {
           id?: number
           level?: string | null
           name: string
+          skill_link?: string | null
         }
         Update: {
           category?: string | null
@@ -251,6 +256,7 @@ export type Database = {
           id?: number
           level?: string | null
           name?: string
+          skill_link?: string | null
         }
         Relationships: []
       }
@@ -392,19 +398,3 @@ export const Constants = {
     Enums: {},
   },
 } as const
-
-// Utility type to extract table types
-export type TableTypes<TableName extends keyof DefaultSchema["Tables"]> = {
-  Row: DefaultSchema["Tables"][TableName]["Row"];
-  Insert: DefaultSchema["Tables"][TableName]["Insert"];
-  Update: DefaultSchema["Tables"][TableName]["Update"];
-};
-
-// Generate types for each table
-export type ExperienceSkillsTable = TableTypes<"experience_skills">;
-export type HackathonSkillsTable = TableTypes<"hackathon_skills">;
-export type HackathonsTable = TableTypes<"hackathons">;
-export type ProfessionalExperiencesTable = TableTypes<"professional_experiences">;
-export type ProjectSkillsTable = TableTypes<"project_skills">;
-export type SideProjectsTable = TableTypes<"side_projects">;
-export type SkillsTable = TableTypes<"skills">;

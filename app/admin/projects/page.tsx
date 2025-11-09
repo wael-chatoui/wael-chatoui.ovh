@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { sora } from "@/app/font";
 import { useState } from "react";
+import SkillSelector from "@/components/skill-selector";
 
 interface Project {
   id?: number;
@@ -24,11 +25,56 @@ export default function ProjectsAdminPage() {
     featured: false,
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [selectedSkills, setSelectedSkills] = useState<number[]>([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Project data:", formData);
-    // TODO: Add Supabase integration
-    alert("Project saved! (TODO: Connect to Supabase)");
+    setIsSubmitting(true);
+    setMessage(null);
+
+    try {
+      const response = await fetch('/api/projects', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          skill_ids: selectedSkills
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to save project');
+      }
+
+      setMessage({ type: 'success', text: 'Project saved successfully with linked skills!' });
+      
+      setFormData({
+        name: "",
+        description: "",
+        github_link: "",
+        live_link: "",
+        image_url: "",
+        featured: false,
+      });
+      setSelectedSkills([]);
+
+      setTimeout(() => setMessage(null), 3000);
+
+    } catch (error) {
+      console.error('Error saving project:', error);
+      setMessage({ 
+        type: 'error', 
+        text: error instanceof Error ? error.message : 'Failed to save project' 
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -49,6 +95,20 @@ export default function ProjectsAdminPage() {
       >
         🚀 Side <span className="font-bold">Projects</span>
       </motion.h1>
+
+      {message && (
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className={`max-w-3xl w-full p-4 rounded-lg ${
+            message.type === 'success' 
+              ? 'bg-green-500/20 border-2 border-green-500/50 text-green-100' 
+              : 'bg-red-500/20 border-2 border-red-500/50 text-red-100'
+          }`}
+        >
+          {message.text}
+        </motion.div>
+      )}
 
       <motion.form
         onSubmit={handleSubmit}
@@ -148,27 +208,43 @@ export default function ProjectsAdminPage() {
               Featured projects will be highlighted on your portfolio homepage
             </p>
           </div>
+
+          {/* Skills Selector */}
+          <div className="md:col-span-2">
+            <label className="block text-sm font-medium mb-2">Related Skills</label>
+            <SkillSelector
+              selectedSkills={selectedSkills}
+              onChange={setSelectedSkills}
+            />
+            <p className="text-sm opacity-70 mt-2">
+              💡 Select the skills/technologies used in this project
+            </p>
+          </div>
         </div>
 
         {/* Submit Button */}
         <div className="flex gap-4 pt-6">
           <button
             type="submit"
-            className="flex-1 px-8 py-4 rounded-lg font-semibold text-white transition-all hover:scale-105"
+            disabled={isSubmitting}
+            className="flex-1 px-8 py-4 rounded-lg font-semibold text-white transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
             style={{ backgroundColor: '#1e40af' }}
           >
-            Save Project
+            {isSubmitting ? 'Saving...' : 'Save Project'}
           </button>
           <button
             type="button"
-            onClick={() => setFormData({
-              name: "",
-              description: "",
-              github_link: "",
-              live_link: "",
-              image_url: "",
-              featured: false,
-            })}
+            onClick={() => {
+              setFormData({
+                name: "",
+                description: "",
+                github_link: "",
+                live_link: "",
+                image_url: "",
+                featured: false,
+              });
+              setSelectedSkills([]);
+            }}
             className="px-8 py-4 rounded-lg font-semibold transition-all hover:scale-105"
             style={{ 
               backgroundColor: 'rgba(59, 130, 246, 0.1)',

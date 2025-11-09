@@ -10,6 +10,7 @@ interface Skill {
   category: string;
   level: string;
   icon_url: string;
+  link: string;
 }
 
 export default function SkillsAdminPage() {
@@ -18,6 +19,7 @@ export default function SkillsAdminPage() {
     category: "",
     level: "Intermediate",
     icon_url: "",
+    link: "",
   });
 
   const categories = [
@@ -28,6 +30,8 @@ export default function SkillsAdminPage() {
     "Mobile",
     "Design",
     "Tools",
+		"FullStack",
+		"Algo",
     "Other"
   ];
 
@@ -38,11 +42,52 @@ export default function SkillsAdminPage() {
     "Expert"
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Skill data:", formData);
-    // TODO: Add Supabase integration
-    alert("Skill saved! (TODO: Connect to Supabase)");
+    setIsSubmitting(true);
+    setMessage(null);
+
+    try {
+      const response = await fetch('/api/skills', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to save skill');
+      }
+
+      setMessage({ type: 'success', text: 'Skill saved successfully!' });
+
+      // Clear form after successful submission
+      setFormData({
+        name: "",
+        category: "",
+        level: "Intermediate",
+        icon_url: "",
+        link: "",
+      });
+
+      // Clear success message after 3 seconds
+      setTimeout(() => setMessage(null), 3000);
+
+    } catch (error) {
+      console.error('Error saving skill:', error);
+      setMessage({
+        type: 'error',
+        text: error instanceof Error ? error.message : 'Failed to save skill'
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -63,6 +108,21 @@ export default function SkillsAdminPage() {
       >
         🧩 Manage <span className="font-bold">Skills</span>
       </motion.h1>
+
+      {/* Success/Error Message */}
+      {message && (
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className={`max-w-3xl w-full p-4 rounded-lg ${
+            message.type === 'success'
+              ? 'bg-green-500/20 border-2 border-green-500/50 text-green-100'
+              : 'bg-red-500/20 border-2 border-red-500/50 text-red-100'
+          }`}
+        >
+          {message.text}
+        </motion.div>
+      )}
 
       <motion.form
         onSubmit={handleSubmit}
@@ -140,23 +200,40 @@ export default function SkillsAdminPage() {
             />
             <p className="text-sm opacity-70 mt-2">
               💡 Tip: Use icons from{" "}
-              <a 
-                href="https://simpleicons.org/" 
-                target="_blank" 
+              <a
+                href="https://simpleicons.org/"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="underline hover:text-blue-400"
               >
                 Simple Icons
               </a>
               {" "}or{" "}
-              <a 
-                href="https://devicon.dev/" 
-                target="_blank" 
+              <a
+                href="https://devicon.dev/"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="underline hover:text-blue-400"
               >
                 Devicon
               </a>
+            </p>
+          </div>
+
+          {/* Skill Link */}
+          <div className="md:col-span-2">
+            <label className="block text-sm font-medium mb-2">GitHub/Documentation Link</label>
+            <input
+              type="url"
+              name="link"
+              value={formData.link}
+              onChange={handleChange}
+              className="w-full px-4 py-3 rounded-lg border-2 bg-transparent transition-all focus:outline-none focus:border-blue-500"
+              style={{ borderColor: 'rgba(59, 130, 246, 0.3)' }}
+              placeholder="https://github.com/..."
+            />
+            <p className="text-sm opacity-70 mt-2">
+              🔗 Link to GitHub repository or official documentation
             </p>
           </div>
         </div>
@@ -165,10 +242,11 @@ export default function SkillsAdminPage() {
         <div className="flex gap-4 pt-6">
           <button
             type="submit"
-            className="flex-1 px-8 py-4 rounded-lg font-semibold text-white transition-all hover:scale-105"
+            disabled={isSubmitting}
+            className="flex-1 px-8 py-4 rounded-lg font-semibold text-white transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
             style={{ backgroundColor: '#1e40af' }}
           >
-            Save Skill
+            {isSubmitting ? 'Saving...' : 'Save Skill'}
           </button>
           <button
             type="button"
@@ -177,9 +255,10 @@ export default function SkillsAdminPage() {
               category: "",
               level: "Intermediate",
               icon_url: "",
+              link: "",
             })}
             className="px-8 py-4 rounded-lg font-semibold transition-all hover:scale-105"
-            style={{ 
+            style={{
               backgroundColor: 'rgba(59, 130, 246, 0.1)',
               border: '2px solid rgba(59, 130, 246, 0.3)'
             }}

@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { sora } from "@/app/font";
 import { useState } from "react";
+import SkillSelector from "@/components/skill-selector";
 
 interface Experience {
   id?: number;
@@ -30,13 +31,61 @@ export default function ExperiencesAdminPage() {
     github_link: "",
   });
 
+  const [selectedSkills, setSelectedSkills] = useState<number[]>([]);
   const [isCurrentJob, setIsCurrentJob] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Experience data:", formData);
-    // TODO: Add Supabase integration
-    alert("Experience saved! (TODO: Connect to Supabase)");
+    setIsSubmitting(true);
+    setMessage(null);
+
+    try {
+      const response = await fetch('/api/experiences', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          skill_ids: selectedSkills
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to save experience');
+      }
+
+      setMessage({ type: 'success', text: 'Experience saved successfully with linked skills!' });
+      
+      setFormData({
+        company_name: "",
+        role: "",
+        start_date: "",
+        end_date: "",
+        location: "",
+        description: "",
+        image_url: "",
+        website: "",
+        github_link: "",
+      });
+      setSelectedSkills([]);
+      setIsCurrentJob(false);
+
+      setTimeout(() => setMessage(null), 3000);
+
+    } catch (error) {
+      console.error('Error saving experience:', error);
+      setMessage({ 
+        type: 'error', 
+        text: error instanceof Error ? error.message : 'Failed to save experience' 
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -57,6 +106,20 @@ export default function ExperiencesAdminPage() {
       >
         💼 Professional <span className="font-bold">Experiences</span>
       </motion.h1>
+
+      {message && (
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className={`max-w-3xl w-full p-4 rounded-lg ${
+            message.type === 'success' 
+              ? 'bg-green-500/20 border-2 border-green-500/50 text-green-100' 
+              : 'bg-red-500/20 border-2 border-red-500/50 text-red-100'
+          }`}
+        >
+          {message.text}
+        </motion.div>
+      )}
 
       <motion.form
         onSubmit={handleSubmit}
@@ -209,16 +272,29 @@ export default function ExperiencesAdminPage() {
               placeholder="https://github.com/..."
             />
           </div>
+
+          {/* Skills Selector */}
+          <div className="md:col-span-2">
+            <label className="block text-sm font-medium mb-2">Related Skills</label>
+            <SkillSelector
+              selectedSkills={selectedSkills}
+              onChange={setSelectedSkills}
+            />
+            <p className="text-sm opacity-70 mt-2">
+              💡 Select the skills/technologies used in this role
+            </p>
+          </div>
         </div>
 
         {/* Submit Button */}
         <div className="flex gap-4 pt-6">
           <button
             type="submit"
-            className="flex-1 px-8 py-4 rounded-lg font-semibold text-white transition-all hover:scale-105"
+            disabled={isSubmitting}
+            className="flex-1 px-8 py-4 rounded-lg font-semibold text-white transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
             style={{ backgroundColor: '#1e40af' }}
           >
-            Save Experience
+            {isSubmitting ? 'Saving...' : 'Save Experience'}
           </button>
           <button
             type="button"
@@ -234,6 +310,7 @@ export default function ExperiencesAdminPage() {
                 website: "",
                 github_link: "",
               });
+              setSelectedSkills([]);
               setIsCurrentJob(false);
             }}
             className="px-8 py-4 rounded-lg font-semibold transition-all hover:scale-105"
