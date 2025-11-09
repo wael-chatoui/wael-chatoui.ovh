@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Expertise",
+  title: {
+    absolute: "Wael Chatoui - Admin - Experiences",
+  },
 };
 
-export default function ExpertiseLayout({
+export default function AdminExperiencesLayout({
   children,
 }: {
   children: React.ReactNode;

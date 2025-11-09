@@ -6,7 +6,10 @@ import AnimatedBackground from "@/components/animated-background";
 import ThemeWrapper from "@/components/theme-wrapper";
 
 export const metadata: Metadata = {
-  title: "Wael Chatoui",
+  title: {
+    default: "Wael Chatoui",
+    template: "Wael Chatoui - %s",
+  },
   description: "Portefolio: Wael CHATOUI, 42 Paris student from September 2025 piscine.",
 };
 
