@@ -18,7 +18,7 @@ return (
 	initial={{ opacity: 0, y: 20 }}
 	animate={{ opacity: 1, y: 0 }}
 	transition={{ delay: index * 0.1 }}
-	className="group relative flex flex-col items-start justify-between gap-4 rounded-2xl border border-purple-500/10 bg-purple-500/5 p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-purple-500/40 hover:bg-purple-500/10 hover:shadow-xl md:flex-row"
+	className="group relative flex flex-col items-start justify-between gap-4 rounded-2xl border border-purple-200 bg-purple-50 p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-purple-300 hover:bg-purple-100 hover:shadow-xl dark:border-purple-500/10 dark:bg-purple-500/5 dark:hover:border-purple-500/40 dark:hover:bg-purple-500/10 md:flex-row"
 	>
 	{project.image_url && (
 		<div className="w-full md:w-32 h-32 shrink-0 relative rounded-lg overflow-hidden">
@@ -34,7 +34,7 @@ return (
 
 	<div className="flex-1">
 		<div className="flex items-center gap-2 mb-2">
-		<h3 className="text-xl font-semibold">{project.name}</h3>
+		<h3 className="text-xl font-semibold text-slate-900 dark:text-slate-100">{project.name}</h3>
 		{project.featured && (
 			<span className="inline-flex items-center gap-1 rounded-full bg-white/70 px-2 py-1 text-xs font-semibold text-purple-500 shadow-sm backdrop-blur-sm dark:bg-slate-900/60">
 				<Icon icon="mdi:star-four-points-outline" width={16} height={16} />

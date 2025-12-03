@@ -25,7 +25,7 @@ return (
 	initial={{ opacity: 0, y: 20 }}
 	animate={{ opacity: 1, y: 0 }}
 	transition={{ delay: index * 0.1 }}
-	className="group relative flex flex-col items-start justify-between gap-4 rounded-2xl border border-emerald-500/10 bg-emerald-500/5 p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-emerald-500/40 hover:bg-emerald-500/10 hover:shadow-xl md:flex-row"
+	className="group relative flex flex-col items-start justify-between gap-4 rounded-2xl border border-emerald-200 bg-emerald-50 p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-emerald-300 hover:bg-emerald-100 hover:shadow-xl dark:border-emerald-500/10 dark:bg-emerald-500/5 dark:hover:border-emerald-500/40 dark:hover:bg-emerald-500/10 md:flex-row"
 	>
 	{hackathon.image_url && (
 		<div className="w-full md:w-32 h-32 shrink-0 relative rounded-lg overflow-hidden">
@@ -40,9 +40,9 @@ return (
 	)}
 
 	<div className="flex-1">
-		<h3 className="text-xl font-semibold mb-1">{hackathon.name}</h3>
-		<p className="text-lg opacity-80 mb-2">{hackathon.organized_by}</p>
-		<p className="text-sm opacity-60 mb-2">
+		<h3 className="text-xl font-semibold mb-1 text-slate-900 dark:text-slate-100">{hackathon.name}</h3>
+		<p className="text-lg opacity-80 mb-2 text-slate-700 dark:text-slate-300">{hackathon.organized_by}</p>
+		<p className="text-sm opacity-60 mb-2 text-slate-500 dark:text-slate-400">
 		{formatDate(hackathon.start_date)} - {formatDate(hackathon.end_date)}
 		</p>
 

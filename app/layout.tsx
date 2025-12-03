@@ -23,11 +23,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden scroll-smooth flex flex-col min-h-screen`}
       >
-				<AnimatedBackground />
-				<ContactBar />
-				<ThemeWrapper>
-					{children}
-				</ThemeWrapper>
+        <ThemeWrapper>
+          <AnimatedBackground />
+          <ContactBar />
+          {children}
+        </ThemeWrapper>
       </body>
     </html>
   );

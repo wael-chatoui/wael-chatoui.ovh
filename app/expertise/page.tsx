@@ -13,12 +13,18 @@ import CategoryTabs from "@/components/expertise/category-tabs";
 import LoadingSkeleton from "@/components/expertise/loading-skeleton";
 import ErrorState from "@/components/expertise/error-state";
 import EmptyState from "@/components/expertise/empty-state";
+import { useTheme } from "@/components/theme-wrapper";
 import { Icon } from "@iconify/react";
 
 export default function ExpertisePage() {
 const { experiences, projects, hackathons, loading, error, refetch } = useExpertiseData();
 const [activeCategory, setActiveCategory] = useState<Category>('experiences');
 const [isSkillsPreviewCollapsed, setIsSkillsPreviewCollapsed] = useState(false);
+const { isDark, isHydrated } = useTheme();
+
+const pageBackgroundClass = isHydrated
+	? (isDark ? "bg-slate-950 text-slate-100" : "bg-white text-slate-900")
+	: "bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100";
 
 const categories: CategoryConfig[] = [
 	{ id: 'experiences', label: 'Professional', icon: 'mdi:briefcase-variant-outline', count: experiences.length },
@@ -79,7 +85,7 @@ const renderContent = () => {
 };
 
 return (
-	<div className="min-h-screen w-full bg-linear-to-b from-slate-50/40 via-white to-white dark:from-slate-950 dark:via-slate-950 dark:to-slate-950">
+	<div className={`relative z-10 min-h-screen w-full transition-colors duration-300 ${pageBackgroundClass}`}>
 	<div className="mx-auto flex min-h-screen max-w-6xl flex-col items-center justify-start px-6 pb-24 pt-32">
 	<motion.h1
 		className={`${sora.className} text-center text-5xl md:text-7xl font-semibold tracking-tight mb-12`}
@@ -118,7 +124,7 @@ return (
 		<motion.div
 			layout
 			whileHover={{ scale: 1.04, translateY: -6 }}
-			className="pointer-events-auto fixed bottom-10 left-12 z-40 w-72 overflow-hidden rounded-3xl border border-blue-500/20 bg-white/80 p-5 shadow-2xl shadow-blue-500/20 backdrop-blur-xl transition-all duration-300 dark:bg-slate-950/70"
+			className="pointer-events-auto fixed bottom-10 left-12 z-40 w-72 overflow-hidden rounded-3xl border border-blue-500/20 bg-white p-5 shadow-xl shadow-blue-500/10 ring-1 ring-blue-500/10 backdrop-blur-xl transition-all duration-300 dark:bg-slate-950/70"
 			transition={{ layout: { type: "spring", stiffness: 260, damping: 24 } }}
 		>
 			<div className="flex items-center justify-between gap-3">
@@ -162,7 +168,7 @@ return (
 						<div className="mt-4">
 							<Link
 								href="/expertise/skills"
-								className={`${poppins.className} block space-y-3 text-left text-slate-600 transition-colors duration-200 hover:text-blue-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500/50 dark:text-slate-300 dark:hover:text-blue-200`}
+										className={`${poppins.className} block space-y-3 text-left text-slate-700 transition-colors duration-200 hover:text-blue-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500/50 dark:text-slate-300 dark:hover:text-blue-200`}
 							>
 								<p className="text-sm">
 									A curated stack across design systems, resilient backends, and cloud-native tooling.
@@ -198,7 +204,7 @@ return (
 		/>
 
 		{/* Content Area */}
-		<div className="mt-6 min-h-[400px] rounded-3xl border border-slate-200/60 bg-white/70 p-6 shadow-sm backdrop-blur dark:border-slate-800/60 dark:bg-slate-900/60">
+		<div className="mt-6 min-h-[400px] rounded-3xl border border-slate-200 bg-white p-6 shadow-lg shadow-slate-200/40 text-slate-900 dark:border-slate-800/60 dark:bg-slate-900/60 dark:text-slate-100">
 		{renderContent()}
 		</div>
 	</motion.div>

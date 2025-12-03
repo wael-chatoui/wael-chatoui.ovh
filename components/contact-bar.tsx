@@ -6,6 +6,7 @@ import { Icon } from "@iconify/react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { sora } from "@/app/font";
+import { useTheme } from "@/components/theme-wrapper";
 
 export default function ContactBar() {
 const screenSize = useScreenSize();
@@ -21,44 +22,18 @@ const iconSize = isHomePage
 	? (screenSize < 768 ? 40 : 28)
 	: (screenSize < 768 ? 24 : 26);
 
-const [isDark, setIsDark] = useState(false);
+const { isDark, toggleTheme, isHydrated } = useTheme();
 
-useEffect(() => {
-	if (typeof window === "undefined") {
-	return;
-	}
-
-	const htmlElement = document.documentElement;
-	const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-	if (prefersDark) {
-	htmlElement.classList.add("dark");
-	htmlElement.style.colorScheme = "dark";
-	}
-
-	requestAnimationFrame(() => {
-	setIsDark(htmlElement.classList.contains("dark"));
-	});
-}, []);
-
-const toggleTheme = () => {
-	const htmlElement = document.documentElement;
-	const isDarkMode = htmlElement.classList.contains("dark");
-
-	if (isDarkMode) {
-	htmlElement.classList.remove("dark");
-	htmlElement.style.colorScheme = "light";
-	} else {
-	htmlElement.classList.add("dark");
-	htmlElement.style.colorScheme = "dark";
-	}
-
-	setIsDark(!isDarkMode);
-};
-
-const baseTextColor = isDark ? "text-slate-100" : "text-slate-900";
-const hoverAccent = isDark ? "hover:text-blue-300" : "hover:text-blue-600";
-const subtleText = isDark ? "text-slate-300" : "text-slate-500";
+// Use Tailwind dark: classes before hydration for consistency
+const baseTextColor = isHydrated
+	? (isDark ? "text-slate-100" : "text-slate-900")
+	: "text-slate-900 dark:text-slate-100";
+const hoverAccent = isHydrated
+	? (isDark ? "hover:text-blue-300" : "hover:text-blue-600")
+	: "hover:text-blue-600 dark:hover:text-blue-300";
+const subtleText = isHydrated
+	? (isDark ? "text-slate-300" : "text-slate-500")
+	: "text-slate-500 dark:text-slate-300";
 const freelanceLinks = useMemo(
 	() => [
 		{
@@ -102,11 +77,16 @@ useEffect(() => {
 		document.removeEventListener("keydown", handleEscape);
 	};
 }, []);
-const headerClasses = `md:fixed top-0 left-0 right-0 z-50 w-full flex items-center justify-between px-6 py-6 transition shadow-lg backdrop-blur-xl ${
-	isDark
-		? "border-b border-slate-800/60 bg-slate-950/70 shadow-black/30"
-		: "border-b border-white/70 bg-white/70 shadow-blue-500/10"
-}`;
+
+// Use Tailwind dark: classes before hydration for header background
+const headerClasses = isHydrated
+	? `md:fixed top-0 left-0 right-0 z-50 w-full flex items-center justify-between px-6 py-6 transition shadow-lg backdrop-blur-xl ${
+		isDark
+			? "border-b border-slate-800/60 bg-slate-950/70 shadow-black/30"
+			: "border-b border-white/70 bg-white/70 shadow-blue-500/10"
+	}`
+	: "md:fixed top-0 left-0 right-0 z-50 w-full flex items-center justify-between px-6 py-6 transition shadow-lg backdrop-blur-xl border-b border-white/70 bg-white/70 shadow-blue-500/10 dark:border-slate-800/60 dark:bg-slate-950/70 dark:shadow-black/30";
+
 let backHref: string | null = null;
 
 if (!isHomePage) {

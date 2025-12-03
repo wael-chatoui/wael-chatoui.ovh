@@ -54,7 +54,6 @@ export default function AvatarIcon() {
         borderColor: isDark ? "#ffffff" : "#0f172a",
         borderWidth,
         padding: ringGap,
-        backgroundColor: isDark ? "#0f172a" : "#ffffff",
       }}
     >
       <div
