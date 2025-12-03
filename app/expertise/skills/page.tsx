@@ -91,7 +91,7 @@ export default function SkillsPage() {
   const isEmpty = !loading && !error && skills.length === 0;
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-b from-white via-slate-50/70 to-white dark:from-slate-950 dark:via-slate-950 dark:to-slate-950">
+    <div className="min-h-screen w-full bg-linear-to-b from-white via-slate-50/70 to-white dark:from-slate-950 dark:via-slate-950 dark:to-slate-950">
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-start px-6 pb-24 pt-32">
         <motion.h1
           className={`${sora.className} text-center text-5xl md:text-7xl font-semibold md:font-medium tracking-tight mb-12`}
