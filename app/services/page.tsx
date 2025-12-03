@@ -194,7 +194,7 @@ return (
 	</motion.section>
 
 	<motion.div
-		className="max-w-2xl w-full"
+		className="max-w-2xl w-full mt-16"
 		initial={{ opacity: 0, y: 30 }}
 		animate={{ opacity: 1, y: 0 }}
 		transition={{ duration: 0.8, delay: 0.4 }}
