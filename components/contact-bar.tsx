@@ -73,7 +73,7 @@ return (
 		<Link
 		href="/services"
 		className={`${sora.className} px-4 py-2 rounded-lg font-light tracking-wide transition text-sm md:text-base`}
-		style={{ 
+		style={{
 			color: isDark ? 'white' : '#0f172a',
 			border: `1px solid ${isDark ? 'white' : '#0f172a'}`
 		}}
@@ -104,7 +104,7 @@ return (
 		</a>
 
 		<a
-		href="https://github.com/fraawdrinn"
+		href="https://github.com/wael-chatoui"
 		target="_blank"
 		rel="noopener noreferrer"
 		className="transition"
@@ -116,7 +116,7 @@ return (
 		</a>
 
 		<a
-		href="https://linkedin.com/in/waelchatoui"
+		href="https://linkedin.com/in/wael-chatoui"
 		target="_blank"
 		rel="noopener noreferrer"
 		className="transition"
