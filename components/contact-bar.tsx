@@ -22,7 +22,7 @@ const iconSize = isHomePage
 	? (screenSize < 768 ? 40 : 28)
 	: (screenSize < 768 ? 24 : 26);
 
-const { isDark, toggleTheme, isHydrated } = useTheme();
+const { isDark, isHydrated } = useTheme();
 
 // Use Tailwind dark: classes before hydration for consistency
 const baseTextColor = isHydrated
@@ -194,14 +194,6 @@ return (
 			)}
 		</div>
 
-		<button
-			onClick={toggleTheme}
-			className={`inline-flex items-center gap-2 rounded-full bg-transparent px-3 py-2 text-sm font-semibold transition-colors duration-200 cursor-pointer ${baseTextColor} ${hoverAccent}`}
-			aria-label="Toggle theme"
-		>
-			<span className={`hidden text-xs uppercase tracking-wide ${subtleText} md:inline`}>Theme</span>
-			<Icon icon={isDark ? "mdi:weather-night" : "mdi:weather-sunny"} width={iconSize} height={iconSize} />
-		</button>
 	</nav>
 	</header>
 	);

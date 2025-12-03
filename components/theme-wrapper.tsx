@@ -2,7 +2,6 @@
 
 import {
   createContext,
-  useCallback,
   useContext,
   useEffect,
   useMemo,
@@ -12,7 +11,6 @@ import type { ReactNode } from "react";
 
 type ThemeContextValue = {
   isDark: boolean;
-  toggleTheme: () => void;
   isHydrated: boolean;
 };
 
@@ -45,10 +43,6 @@ export default function ThemeWrapper({ children }: { children: ReactNode }) {
     let mediaQuery: MediaQueryList | null = null;
 
     const handleMediaChange = (event: MediaQueryListEvent) => {
-      if (window.localStorage.getItem("theme")) {
-        return;
-      }
-
       setIsDark(event.matches);
       syncDocumentTheme(event.matches);
     };
@@ -56,12 +50,9 @@ export default function ThemeWrapper({ children }: { children: ReactNode }) {
     try {
       // On mount, read the actual preference
       mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-      const storedPreference = window.localStorage.getItem("theme");
-      const initialIsDark = storedPreference
-        ? storedPreference === "dark"
-        : mediaQuery.matches;
+      const initialIsDark = mediaQuery.matches;
 
-      console.log('[ThemeWrapper] Hydrating with theme:', initialIsDark ? 'dark' : 'light', '| source:', storedPreference ? 'localStorage' : 'system preference');
+      console.log('[ThemeWrapper] Hydrating with theme from system preference:', initialIsDark ? 'dark' : 'light');
       setIsDark(initialIsDark);
       syncDocumentTheme(initialIsDark);
 
@@ -77,23 +68,12 @@ export default function ThemeWrapper({ children }: { children: ReactNode }) {
     };
   }, []);
 
-  const toggleTheme = useCallback(() => {
-    setIsDark((prev) => {
-      const next = !prev;
-      console.log('[ThemeWrapper] Toggle theme:', next ? 'dark' : 'light');
-      window.localStorage.setItem("theme", next ? "dark" : "light");
-      syncDocumentTheme(next);
-      return next;
-    });
-  }, []);
-
   const value = useMemo(
     () => ({
       isDark,
-      toggleTheme,
       isHydrated,
     }),
-    [isDark, toggleTheme, isHydrated],
+    [isDark, isHydrated],
   );
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;

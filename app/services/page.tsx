@@ -2,7 +2,8 @@
 
 import { motion } from "framer-motion";
 import { sora, poppins } from "@/app/font";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
+import { Icon } from "@iconify/react";
 
 export default function ServicesPage() {
 const [isDark, setIsDark] = useState(false);
@@ -15,6 +16,24 @@ const [formData, setFormData] = useState({
 });
 const [isSubmitting, setIsSubmitting] = useState(false);
 const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+const servicePackages = useMemo(
+	() => [
+	{ title: "Web Applications", highlight: "Dashboards, admin panels, custom SaaS", description: "From Supabase-backed APIs to polished UX, I design resilient apps ready for launch." },
+	{ title: "Landing Pages", highlight: "Conversion-first storytelling", description: "High-impact hero sections, motion design, and analytics hooks tailor-made for campaigns." },
+	{ title: "Blogs & Content Hubs", highlight: "SEO-ready publishing", description: "Content systems with MDX, CMS integrations, and delightful reading experiences." },
+	{ title: "E-commerce Experiences", highlight: "Optimized storefronts", description: "Product journeys with secure checkout, inventory logic, and performance budgets." },
+	{ title: "AI & Automation", highlight: "Copilot integrations", description: "Prototype AI copilots, workflow automations, and chat experiences powered by modern APIs." },
+	],
+	[],
+);
+
+const freelancePlatforms = useMemo(
+	() => [
+	{ label: "Malt", href: "https://www.malt.fr/profile/waelchatoui", blurb: "Instant missions & verified reviews", icon: "mdi:storefront-outline" },
+	{ label: "Fiverr", href: "https://fr.fiverr.com/fraaawdrinn/", blurb: "Packaged offers & bundles", icon: "mdi:flash-outline" },
+	],
+	[],
+);
 
 useEffect(() => {
 	const checkTheme = () => {
@@ -122,6 +141,58 @@ return (
 		Let's work together! Fill out the form below and I'll get back to you as soon as possible.
 	</motion.p>
 
+	<motion.section
+		className="mt-10 w-full max-w-4xl"
+		initial={{ opacity: 0, y: 30 }}
+		animate={{ opacity: 1, y: 0 }}
+		transition={{ duration: 0.8, delay: 0.3 }}
+	>
+		<div className="flex items-center justify-between gap-6 flex-wrap">
+			<div>
+				<p className={`${poppins.className} text-sm uppercase tracking-[0.3em] text-blue-500/80`}>What I ship</p>
+				<h2 className={`${sora.className} text-3xl font-semibold mt-2 text-slate-900 dark:text-slate-100`}>Product-ready missions</h2>
+			</div>
+			<a
+				href="#contact-form"
+				className="group inline-flex items-center gap-2 rounded-full border border-blue-500/40 px-4 py-2 text-sm font-semibold text-blue-600 transition-all duration-200 hover:bg-blue-500/10 hover:text-blue-700 dark:border-blue-400/60 dark:text-blue-300 dark:hover:bg-blue-500/20"
+			>
+				Skip to brief
+				<Icon icon="mdi:arrow-down-circle" className="text-lg transition-transform group-hover:translate-y-0.5" />
+			</a>
+		</div>
+
+		<div className="mt-6 grid gap-4 md:grid-cols-2">
+			{servicePackages.map((pkg) => (
+				<div
+					key={pkg.title}
+					className="rounded-3xl border border-slate-200/70 bg-white/80 p-5 shadow-lg shadow-slate-200/40 backdrop-blur-sm transition hover:-translate-y-1 hover:border-blue-500/40 hover:shadow-blue-500/10 dark:border-slate-800 dark:bg-slate-900/60"
+				>
+					<h3 className={`${sora.className} text-xl font-semibold text-slate-900 dark:text-slate-100`}>{pkg.title}</h3>
+					<p className="mt-1 text-sm font-medium text-blue-600 dark:text-blue-300">{pkg.highlight}</p>
+					<p className="mt-3 text-sm text-slate-600 dark:text-slate-300">{pkg.description}</p>
+				</div>
+			))}
+		</div>
+
+		<div className="mt-8 grid gap-4 md:grid-cols-2">
+			{freelancePlatforms.map((platform) => (
+				<a
+					key={platform.label}
+					href={platform.href}
+					target="_blank"
+					rel="noopener noreferrer"
+					className="flex items-center justify-between rounded-3xl border border-blue-500/30 bg-gradient-to-r from-blue-500/10 to-blue-600/20 p-5 text-blue-700 shadow-lg shadow-blue-500/20 transition hover:-translate-y-1 hover:shadow-blue-500/30 dark:border-blue-500/40 dark:text-blue-200 dark:from-blue-500/10 dark:to-blue-500/5"
+				>
+					<div>
+						<p className={`${poppins.className} text-lg font-semibold`}>{platform.label}</p>
+						<p className="text-sm text-blue-900/70 dark:text-blue-100/80">{platform.blurb}</p>
+					</div>
+					<Icon icon={platform.icon} width={32} height={32} />
+				</a>
+			))}
+		</div>
+	</motion.section>
+
 	<motion.div
 		className="max-w-2xl w-full"
 		initial={{ opacity: 0, y: 30 }}
@@ -129,6 +200,7 @@ return (
 		transition={{ duration: 0.8, delay: 0.4 }}
 	>
 		<form
+			id="contact-form"
 		onSubmit={handleSubmit}
 		className="rounded-2xl p-8 md:p-10 shadow-2xl backdrop-blur-sm border"
 		style={{
