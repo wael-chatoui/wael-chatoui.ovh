@@ -1,8 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
 import { Category } from "@/types/expertise";
+import { Icon } from "@iconify/react";
 
 interface EmptyStateProps {
 category: Category;
@@ -14,10 +14,10 @@ projects: 'projects',
 hackathons: 'hackathons'
 };
 
-const categoryEmojis: Record<Category, string> = {
-experiences: '💼',
-projects: '🚀',
-hackathons: '🏆'
+const categoryIcons: Record<Category, string> = {
+  experiences: "mdi:briefcase-variant-outline",
+  projects: "mdi:rocket-launch-outline",
+  hackathons: "mdi:trophy-outline",
 };
 
 export default function EmptyState({ category }: EmptyStateProps) {
@@ -27,16 +27,12 @@ return (
 	animate={{ opacity: 1, scale: 1 }}
 	className="text-center py-20"
 	>
-	<div className="text-6xl mb-4">{categoryEmojis[category]}</div>
+	<div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-3xl bg-blue-500/10 text-blue-500 dark:bg-blue-400/10">
+		<Icon icon={categoryIcons[category]} width={44} height={44} />
+	</div>
 	<h3 className="text-xl font-semibold mb-2 opacity-80">
 		No {categoryLabels[category]} yet
 	</h3>
-	{/* <p className="text-sm opacity-60">
-		Add some through the{' '}
-		<Link href="/admin" className="underline text-blue-400 hover:text-blue-300 transition-colors">
-		admin panel
-		</Link>
-	</p> */}
 	</motion.div>
 );
 }

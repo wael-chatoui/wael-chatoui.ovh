@@ -53,7 +53,7 @@ export default function ProjectsAdminPage() {
       }
 
       setMessage({ type: 'success', text: 'Project saved successfully with linked skills!' });
-      
+
       setFormData({
         name: "",
         description: "",
@@ -68,9 +68,9 @@ export default function ProjectsAdminPage() {
 
     } catch (error) {
       console.error('Error saving project:', error);
-      setMessage({ 
-        type: 'error', 
-        text: error instanceof Error ? error.message : 'Failed to save project' 
+      setMessage({
+        type: 'error',
+        text: error instanceof Error ? error.message : 'Failed to save project'
       });
     } finally {
       setIsSubmitting(false);
@@ -101,8 +101,8 @@ export default function ProjectsAdminPage() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           className={`max-w-3xl w-full p-4 rounded-lg ${
-            message.type === 'success' 
-              ? 'bg-green-500/20 border-2 border-green-500/50 text-green-100' 
+            message.type === 'success'
+              ? 'bg-green-500/20 border-2 border-green-500/50 text-green-100'
               : 'bg-red-500/20 border-2 border-red-500/50 text-red-100'
           }`}
         >
@@ -227,7 +227,7 @@ export default function ProjectsAdminPage() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="flex-1 px-8 py-4 rounded-lg font-semibold text-white transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+            className="flex-1 px-8 py-4 rounded-lg font-semibold text-white transition-all hover:scale-105 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
             style={{ backgroundColor: '#1e40af' }}
           >
             {isSubmitting ? 'Saving...' : 'Save Project'}
@@ -245,8 +245,8 @@ export default function ProjectsAdminPage() {
               });
               setSelectedSkills([]);
             }}
-            className="px-8 py-4 rounded-lg font-semibold transition-all hover:scale-105"
-            style={{ 
+            className="px-8 py-4 rounded-lg font-semibold transition-all hover:scale-105 cursor-pointer"
+            style={{
               backgroundColor: 'rgba(59, 130, 246, 0.1)',
               border: '2px solid rgba(59, 130, 246, 0.3)'
             }}

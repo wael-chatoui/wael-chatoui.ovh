@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 
 interface SkillFlagProps {
   name: string;
@@ -35,14 +36,18 @@ const levelColors = {
 
 export default function SkillFlag({ name, level, icon_url, link }: SkillFlagProps) {
   const colors = levelColors[level];
+  const iconSrc = resolveIconUrl(icon_url);
 
   const content = (
     <>
-      {icon_url && (
-        <img
-          src={icon_url}
+      {iconSrc && (
+        <Image
+          src={iconSrc}
           alt={name}
-          className="w-4 h-4 object-contain"
+          width={20}
+          height={20}
+          className="h-4 w-4 object-contain"
+		  unoptimized
         />
       )}
       <span
@@ -93,4 +98,25 @@ export default function SkillFlag({ name, level, icon_url, link }: SkillFlagProp
       {content}
     </MotionComponent>
   );
+}
+
+function resolveIconUrl(rawUrl?: string) {
+  if (!rawUrl) return undefined;
+  if (/^https?:\/\//i.test(rawUrl)) return rawUrl;
+
+  const baseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  if (!baseUrl) return rawUrl;
+
+  let path = rawUrl.trim();
+  if (!path.startsWith("/")) {
+    path = path.includes("storage/v1")
+      ? `/${path}`
+      : `/storage/v1/object/public/${path}`;
+  }
+
+  try {
+    return new URL(path, baseUrl).toString();
+  } catch {
+    return rawUrl;
+  }
 }

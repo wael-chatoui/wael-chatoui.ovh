@@ -53,6 +53,6 @@ export interface Hackathon {
 export interface CategoryConfig {
   id: Category;
   label: string;
-  icon: string;
+  icon: string; // Iconify icon id used across the expertise tabs
   count: number;
 }

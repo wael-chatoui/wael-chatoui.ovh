@@ -21,7 +21,7 @@ export default function ErrorState({ message = "Failed to load data", onRetry }:
       {onRetry && (
         <button
           onClick={onRetry}
-          className={`${poppins.className} px-6 py-3 text-base font-medium rounded-xl transition-all hover:scale-105`}
+          className={`${poppins.className} px-6 py-3 text-base font-medium rounded-xl transition-all hover:scale-105 cursor-pointer`}
           style={{
             backgroundColor: 'rgba(59, 130, 246, 0.2)',
             borderColor: 'rgba(59, 130, 246, 0.5)',

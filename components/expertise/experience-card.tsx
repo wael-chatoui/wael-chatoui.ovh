@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Experience } from "@/types/expertise";
 import SkillFlag from "@/components/skill-flag";
 import Image from "next/image";
+import { Icon } from "@iconify/react";
 
 interface ExperienceCardProps {
 experience: Experience;
@@ -23,11 +24,7 @@ return (
 	initial={{ opacity: 0, y: 20 }}
 	animate={{ opacity: 1, y: 0 }}
 	transition={{ delay: index * 0.1 }}
-	className="flex flex-col md:flex-row justify-between items-start gap-4 p-6 rounded-xl border-2 hover:scale-[1.01] transition-all"
-	style={{
-		backgroundColor: 'rgba(59, 130, 246, 0.05)',
-		borderColor: 'rgba(59, 130, 246, 0.2)'
-	}}
+	className="group relative flex flex-col items-start justify-between gap-4 rounded-2xl border border-blue-500/10 bg-blue-500/5 p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-blue-500/40 hover:bg-blue-500/10 hover:shadow-lg md:flex-row"
 	>
 	{experience.image_url && (
 		<div className="w-full md:w-32 h-32 shrink-0 relative rounded-lg overflow-hidden">
@@ -48,15 +45,18 @@ return (
 		{formatDate(experience.start_date)} - {experience.end_date ? formatDate(experience.end_date) : 'Present'}
 		</p>
 		{experience.location && (
-		<p className="text-sm opacity-70">📍 {experience.location}</p>
+		<p className="mt-1 flex items-center gap-2 text-sm text-slate-600 transition-colors group-hover:text-blue-600 dark:text-slate-300 dark:group-hover:text-blue-400">
+			<Icon icon="mdi:map-marker-outline" width={18} height={18} />
+			{experience.location}
+		</p>
 		)}
 		{experience.description && (
-		<p className="text-sm opacity-70 mt-3 line-clamp-3">{experience.description}</p>
+		<p className="mt-3 line-clamp-3 text-sm text-slate-600 transition-colors group-hover:text-slate-700 dark:text-slate-300 dark:group-hover:text-slate-200">{experience.description}</p>
 		)}
 	</div>
 
 	{experience.skills && experience.skills.length > 0 && (
-		<div className="flex flex-wrap gap-2 max-w-xs justify-start md:justify-end">
+		<div className="flex max-w-xs flex-wrap justify-start gap-2 md:justify-end">
 		{experience.skills.map((skill) => (
 			<SkillFlag
 			key={skill.id}
