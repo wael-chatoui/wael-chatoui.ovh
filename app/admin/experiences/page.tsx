@@ -2,11 +2,10 @@
 
 import { motion } from "framer-motion";
 import { sora } from "@/app/font";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import SkillSelector from "@/components/skill-selector";
 
-interface Experience {
-  id?: number;
+interface ExperienceForm {
   company_name: string;
   role: string;
   start_date: string;
@@ -18,23 +17,66 @@ interface Experience {
   github_link: string;
 }
 
+interface ExperienceRecord {
+  id: number;
+  company_name: string;
+  role: string;
+  start_date: string;
+  end_date: string | null;
+  location: string | null;
+  description: string | null;
+  image_url: string | null;
+  website: string | null;
+  github_link: string | null;
+  skills?: { id: number }[];
+}
+
+const emptyExperience: ExperienceForm = {
+  company_name: "",
+  role: "",
+  start_date: "",
+  end_date: "",
+  location: "",
+  description: "",
+  image_url: "",
+  website: "",
+  github_link: "",
+};
+
 export default function ExperiencesAdminPage() {
-  const [formData, setFormData] = useState<Experience>({
-    company_name: "",
-    role: "",
-    start_date: "",
-    end_date: "",
-    location: "",
-    description: "",
-    image_url: "",
-    website: "",
-    github_link: "",
-  });
+  const [formData, setFormData] = useState<ExperienceForm>(emptyExperience);
 
   const [selectedSkills, setSelectedSkills] = useState<number[]>([]);
   const [isCurrentJob, setIsCurrentJob] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
+  const [experiences, setExperiences] = useState<ExperienceRecord[]>([]);
+  const [listLoading, setListLoading] = useState(false);
+  const [editingId, setEditingId] = useState<number | null>(null);
+
+  const resetForm = () => {
+    setFormData(emptyExperience);
+    setSelectedSkills([]);
+    setIsCurrentJob(false);
+    setEditingId(null);
+  };
+
+  const fetchExperiences = useCallback(async () => {
+    setListLoading(true);
+    try {
+      const response = await fetch('/api/experiences');
+      const result = await response.json();
+      setExperiences(result.data || []);
+    } catch (error) {
+      console.error('Error fetching experiences:', error);
+    } finally {
+      setListLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchExperiences();
+  }, [fetchExperiences]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,12 +84,19 @@ export default function ExperiencesAdminPage() {
     setMessage(null);
 
     try {
+      const isEditing = editingId !== null;
+      if (isEditing && (typeof editingId !== "number" || Number.isNaN(editingId))) {
+        setMessage({ type: "error", text: "No experience selected for editing." });
+        setIsSubmitting(false);
+        return;
+      }
       const response = await fetch('/api/experiences', {
-        method: 'POST',
+        method: isEditing ? 'PUT' : 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+          ...(isEditing ? { id: editingId } : {}),
           ...formData,
           skill_ids: selectedSkills
         }),
@@ -59,21 +108,9 @@ export default function ExperiencesAdminPage() {
         throw new Error(result.error || 'Failed to save experience');
       }
 
-      setMessage({ type: 'success', text: 'Experience saved successfully with linked skills!' });
-
-      setFormData({
-        company_name: "",
-        role: "",
-        start_date: "",
-        end_date: "",
-        location: "",
-        description: "",
-        image_url: "",
-        website: "",
-        github_link: "",
-      });
-      setSelectedSkills([]);
-      setIsCurrentJob(false);
+      setMessage({ type: 'success', text: isEditing ? 'Experience updated successfully!' : 'Experience saved successfully with linked skills!' });
+      resetForm();
+      fetchExperiences();
 
       setTimeout(() => setMessage(null), 3000);
 
@@ -104,7 +141,7 @@ export default function ExperiencesAdminPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        💼 Professional <span className="font-bold">Experiences</span>
+        💼 {editingId ? 'Edit' : 'Professional'} <span className="font-bold">Experiences</span>
       </motion.h1>
 
       {message && (
@@ -294,35 +331,90 @@ export default function ExperiencesAdminPage() {
             className="flex-1 px-8 py-4 rounded-lg font-semibold text-white transition-all hover:scale-105 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
             style={{ backgroundColor: '#1e40af' }}
           >
-            {isSubmitting ? 'Saving...' : 'Save Experience'}
+            {isSubmitting ? 'Saving...' : editingId ? 'Update Experience' : 'Save Experience'}
           </button>
           <button
             type="button"
-            onClick={() => {
-              setFormData({
-                company_name: "",
-                role: "",
-                start_date: "",
-                end_date: "",
-                location: "",
-                description: "",
-                image_url: "",
-                website: "",
-                github_link: "",
-              });
-              setSelectedSkills([]);
-              setIsCurrentJob(false);
-            }}
+            onClick={resetForm}
             className="px-8 py-4 rounded-lg font-semibold transition-all hover:scale-105 cursor-pointer"
             style={{
               backgroundColor: 'rgba(59, 130, 246, 0.1)',
               border: '2px solid rgba(59, 130, 246, 0.3)'
             }}
           >
-            Clear Form
+            {editingId ? 'Cancel Edit' : 'Clear Form'}
           </button>
         </div>
       </motion.form>
+
+      <section className="max-w-5xl w-full mt-16">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className={`${sora.className} text-2xl font-semibold`}>Existing Experiences</h2>
+          <button
+            type="button"
+            onClick={fetchExperiences}
+            className="text-sm underline-offset-4 hover:underline"
+          >
+            Refresh
+          </button>
+        </div>
+        {listLoading ? (
+          <p className="opacity-70">Loading experiences...</p>
+        ) : experiences.length === 0 ? (
+          <p className="opacity-70">No experiences saved yet.</p>
+        ) : (
+          <div className="space-y-4">
+            {experiences.map(exp => (
+              <div
+                key={exp.id}
+                className="rounded-2xl border border-blue-500/20 bg-white/70 p-5 shadow-sm dark:bg-slate-900/60"
+              >
+                <div className="flex flex-wrap items-center justify-between gap-4">
+                  <div>
+                    <p className="text-sm uppercase tracking-wide text-blue-500/80">{exp.company_name}</p>
+                    <h3 className={`${sora.className} text-xl font-semibold`}>{exp.role}</h3>
+                    <p className="text-sm opacity-70">
+                      {exp.start_date?.slice(0, 10)} → {exp.end_date ? exp.end_date.slice(0, 10) : 'Present'}
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                              if (typeof exp.id !== 'number' || Number.isNaN(exp.id)) {
+                                console.error('Missing experience id, cannot edit', exp);
+                                return;
+                              }
+                              setEditingId(exp.id);
+                      setFormData({
+                        company_name: exp.company_name,
+                        role: exp.role,
+                        start_date: exp.start_date?.slice(0, 10) || "",
+                        end_date: exp.end_date?.slice(0, 10) || "",
+                        location: exp.location || "",
+                        description: exp.description || "",
+                        image_url: exp.image_url || "",
+                        website: exp.website || "",
+                        github_link: exp.github_link || "",
+                      });
+                      setIsCurrentJob(!exp.end_date);
+                      setSelectedSkills(exp.skills?.map(skill => skill.id) || []);
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
+                    className="rounded-full border border-blue-500/40 px-4 py-2 text-sm font-semibold text-blue-600 transition hover:bg-blue-500/10"
+                  >
+                    Edit
+                  </button>
+                </div>
+                {exp.skills && exp.skills.length > 0 && (
+                  <p className="mt-3 text-xs uppercase tracking-wide text-slate-500">
+                    {exp.skills.length} skill{exp.skills.length === 1 ? '' : 's'} linked
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+      </section>
     </div>
   );
 }

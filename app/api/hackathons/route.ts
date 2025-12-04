@@ -5,19 +5,19 @@ import { cookies } from 'next/headers';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { 
-      name, 
-      organized_by, 
-      start_date, 
-      end_date, 
-      location, 
-      description, 
-      image_url, 
-      github_link, 
-      project_link, 
-      role, 
+    const {
+      name,
+      organized_by,
+      start_date,
+      end_date,
+      location,
+      description,
+      image_url,
+      github_link,
+      project_link,
+      role,
       team_size,
-      skill_ids 
+      skill_ids
     } = body;
 
     // Validate required fields
@@ -79,9 +79,9 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json(
-      { 
+      {
         message: 'Hackathon created successfully',
-        data 
+        data
       },
       { status: 201 }
     );
@@ -128,7 +128,7 @@ export async function GET(request: NextRequest) {
             .from('skills')
             .select('*')
             .in('id', skillIds);
-          
+
           return { ...hack, skills: skills || [] };
         }
 
@@ -137,7 +137,7 @@ export async function GET(request: NextRequest) {
     );
 
     return NextResponse.json(
-      { 
+      {
         message: 'Hackathons fetched successfully',
         data: hackathonsWithSkills,
         count: hackathonsWithSkills?.length || 0
@@ -145,6 +145,99 @@ export async function GET(request: NextRequest) {
       { status: 200 }
     );
 
+  } catch (error) {
+    console.error('API error:', error);
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    );
+  }
+}
+
+export async function PUT(request: NextRequest) {
+  try {
+    const body = await request.json();
+    const {
+      id,
+      name,
+      organized_by,
+      start_date,
+      end_date,
+      location,
+      description,
+      image_url,
+      github_link,
+      project_link,
+      role,
+      team_size,
+      skill_ids,
+    } = body;
+
+    if (!id || Number.isNaN(Number(id))) {
+      return NextResponse.json(
+        { error: 'Missing or invalid hackathon id' },
+        { status: 400 }
+      );
+    }
+
+    if (!name || !start_date || !end_date) {
+      return NextResponse.json(
+        { error: 'Missing required fields: name, start_date, and end_date are required' },
+        { status: 400 }
+      );
+    }
+
+    const cookieStore = cookies();
+    const supabase = createClient(cookieStore);
+
+    const numericId = Number(id);
+
+    const { data, error } = await supabase
+      .from('hackathons')
+      .update({
+        name,
+        organized_by: organized_by || null,
+        start_date,
+        end_date,
+        location: location || null,
+        description: description || null,
+        image_url: image_url || null,
+        github_link: github_link || null,
+        project_link: project_link || null,
+        role: role || null,
+        team_size: typeof team_size === 'number' ? team_size : null,
+      })
+      .eq('id', numericId)
+      .select()
+      .single();
+
+    if (error) {
+      console.error('Supabase error:', error);
+      return NextResponse.json(
+        { error: 'Failed to update hackathon', details: error.message },
+        { status: 500 }
+      );
+    }
+
+    if (Array.isArray(skill_ids)) {
+      await supabase.from('hackathon_skills').delete().eq('hackathon_id', numericId);
+
+      if (skill_ids.length > 0) {
+        const skillLinks = skill_ids.map((skillId: number) => ({
+          hackathon_id: numericId,
+          skill_id: skillId,
+        }));
+        await supabase.from('hackathon_skills').insert(skillLinks);
+      }
+    }
+
+    return NextResponse.json(
+      {
+        message: 'Hackathon updated successfully',
+        data,
+      },
+      { status: 200 }
+    );
   } catch (error) {
     console.error('API error:', error);
     return NextResponse.json(

@@ -5,14 +5,14 @@ import { cookies } from 'next/headers';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { 
-      name, 
-      description, 
-      github_link, 
-      live_link, 
-      image_url, 
+    const {
+      name,
+      description,
+      github_link,
+      live_link,
+      image_url,
       featured,
-      skill_ids 
+      skill_ids
     } = body;
 
     // Validate required fields
@@ -69,9 +69,9 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json(
-      { 
+      {
         message: 'Project created successfully',
-        data 
+        data
       },
       { status: 201 }
     );
@@ -127,7 +127,7 @@ export async function GET(request: NextRequest) {
             .from('skills')
             .select('*')
             .in('id', skillIds);
-          
+
           return { ...proj, skills: skills || [] };
         }
 
@@ -136,7 +136,7 @@ export async function GET(request: NextRequest) {
     );
 
     return NextResponse.json(
-      { 
+      {
         message: 'Projects fetched successfully',
         data: projectsWithSkills,
         count: projectsWithSkills?.length || 0
@@ -144,6 +144,79 @@ export async function GET(request: NextRequest) {
       { status: 200 }
     );
 
+  } catch (error) {
+    console.error('API error:', error);
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    );
+  }
+}
+
+export async function PUT(request: NextRequest) {
+  try {
+    const body = await request.json();
+    const { id, name, description, github_link, live_link, image_url, featured, skill_ids } = body;
+
+    if (!id || Number.isNaN(Number(id))) {
+      return NextResponse.json(
+        { error: 'Missing or invalid project id' },
+        { status: 400 }
+      );
+    }
+
+    if (!name || !description) {
+      return NextResponse.json(
+        { error: 'Missing required fields: name and description are required' },
+        { status: 400 }
+      );
+    }
+
+    const cookieStore = cookies();
+    const supabase = createClient(cookieStore);
+    const numericId = Number(id);
+
+    const { data, error } = await supabase
+      .from('side_projects')
+      .update({
+        name,
+        description,
+        github_link: github_link || null,
+        live_link: live_link || null,
+        image_url: image_url || null,
+        featured: !!featured,
+      })
+      .eq('id', numericId)
+      .select()
+      .single();
+
+    if (error) {
+      console.error('Supabase error:', error);
+      return NextResponse.json(
+        { error: 'Failed to update project', details: error.message },
+        { status: 500 }
+      );
+    }
+
+    if (Array.isArray(skill_ids)) {
+      await supabase.from('project_skills').delete().eq('project_id', numericId);
+
+      if (skill_ids.length > 0) {
+        const skillLinks = skill_ids.map((skillId: number) => ({
+          project_id: numericId,
+          skill_id: skillId,
+        }));
+        await supabase.from('project_skills').insert(skillLinks);
+      }
+    }
+
+    return NextResponse.json(
+      {
+        message: 'Project updated successfully',
+        data,
+      },
+      { status: 200 }
+    );
   } catch (error) {
     console.error('API error:', error);
     return NextResponse.json(
