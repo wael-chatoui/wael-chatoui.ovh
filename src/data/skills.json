@@ -1,0 +1,30 @@
+{
+  "frontend": {
+    "label": "Frontend Engineering",
+    "items": [
+      { "name": "React / Next.js", "level": 90 },
+      { "name": "TypeScript", "level": 85 },
+      { "name": "Tailwind CSS", "level": 95 },
+      { "name": "Framer Motion", "level": 80 },
+      { "name": "WebGL / Three.js", "level": 60 }
+    ]
+  },
+  "backend": {
+    "label": "Backend & System",
+    "items": [
+      { "name": "Node.js", "level": 80 },
+      { "name": "PostgreSQL", "level": 75 },
+      { "name": "C / C++", "level": 70 },
+      { "name": "Docker", "level": 65 }
+    ]
+  },
+  "tools": {
+    "label": "DevOps & Tools",
+    "items": [
+      { "name": "Git / GitHub", "level": 90 },
+      { "name": "Vite / Webpack", "level": 80 },
+      { "name": "Linux / Bash", "level": 85 },
+      { "name": "Figma", "level": 70 }
+    ]
+  }
+}

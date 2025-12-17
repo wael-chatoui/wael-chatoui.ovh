@@ -1,0 +1,22 @@
+{
+  "common": {
+    "recruiterView": "Recruiter View",
+    "technicalView": "Technical View",
+    "viewToggle": "Toggle View Mode"
+  },
+  "nav": {
+    "projects": "Projects",
+    "about": "About",
+    "lab": "Mini-Lab",
+    "contact": "Contact"
+  },
+  "hero": {
+    "role": "Frontend Engineer",
+    "bio": "Building robust interfaces with engineering precision."
+  },
+  "projects": {
+    "title": "Selected Work",
+    "subtitle": "Showcasing applications that solve real-world problems.",
+    "viewCaseStudy": "View Case Study"
+  }
+}

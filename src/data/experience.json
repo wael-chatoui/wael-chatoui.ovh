@@ -1,0 +1,32 @@
+[
+  {
+    "id": "exp-1",
+    "type": "education",
+    "role": "Student / Cadet",
+    "company": "42 Paris",
+    "date": "2023 - Present",
+    "description": "Intensive peer-to-peer coding school. Focus on C, Algorithms, and System Architecture.",
+    "skills": ["C", "Unix", "Algorithms", "Teamwork"],
+    "logo": "42"
+  },
+  {
+    "id": "exp-2",
+    "type": "hackathon",
+    "role": "Frontend Lead",
+    "company": "Paris CodeFest 2024",
+    "date": "Nov 2024",
+    "description": "Won 2nd place for 'AgriFlow', a sustainable agriculture dashboard.",
+    "skills": ["React", "Data Viz", "Rapid Prototyping"],
+    "link": "#"
+  },
+  {
+    "id": "exp-3",
+    "type": "freelance",
+    "role": "Frontend Developer",
+    "company": "Stealth Start-up",
+    "date": "June 2024 - Sept 2024",
+    "description": "Developed the MVP for a logistics SaaS. Implemented real-time tracking and complex forms.",
+    "skills": ["Next.js", "Tailwind", "Supabase"],
+    "link": "#"
+  }
+]

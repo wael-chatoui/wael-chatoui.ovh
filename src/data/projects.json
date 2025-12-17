@@ -1,0 +1,105 @@
+[
+  {
+    "id": "agriflow",
+    "title": "AgriFlow",
+    "short_desc": {
+      "en": "IoT Dashboard for Smart Agriculture",
+      "fr": "Tableau de bord IoT pour l'agriculture intelligente"
+    },
+    "type": "Web App",
+    "year": "2024",
+    "cover_image": "/assets/placeholder-project.jpg",
+    "problem": {
+      "en": "Farmers lack real-time visibility into soil moisture and sensor data, leading to water waste.",
+      "fr": "Manque de visibilité temps réel sur l'humidité du sol pour les agriculteurs, entraînant un gaspillage d'eau."
+    },
+    "solution": {
+      "en": "A centralized dashboard aggregating sensor data with actionable insights and automated irrigation controls.",
+      "fr": "Un tableau de bord centralisé agrégeant les données capteurs avec des insights actionnables et un contrôle d'irrigation automatisé."
+    },
+    "technical": {
+      "stack": ["React", "Recharts", "Node.js", "PostgreSQL"],
+      "architecture": "Event-driven architecture consuming MQTT topics via WebSockets.",
+      "challenges": {
+        "en": "Handling high-frequency sensor updates without UI lag.",
+        "fr": "Gestion des mises à jour fréquentes des capteurs sans ralentissement de l'UI."
+      },
+      "optimization": {
+        "en": "Implemented data throttling and canvas-based rendering for dense charts.",
+        "fr": "Implémentation de throttling de données et rendu canvas pour les graphiques denses."
+      }
+    },
+    "links": {
+      "demo": "https://agriflow.demo",
+      "github": "https://github.com/wael/agriflow"
+    }
+  },
+  {
+    "id": "chatoui",
+    "title": "ChatOUI",
+    "short_desc": {
+      "en": "Real-time Messaging Protocol Implementation",
+      "fr": "Implémentation de protocole de messagerie temps réel"
+    },
+    "type": "System / Web",
+    "year": "2024",
+    "cover_image": "/assets/placeholder-chat.jpg",
+    "problem": {
+      "en": "Existing chat solutions were bloated. Goal was to understand WebSocket internals.",
+      "fr": "Solutions de chat existantes trop lourdes. Objectif : comprendre les internes des WebSockets."
+    },
+    "solution": {
+      "en": "A lightweight, custom protocol on top of TCP, visualized with a modern React frontend.",
+      "fr": "Un protocole léger personnalisé sur TCP, visualisé avec un frontend React moderne."
+    },
+    "technical": {
+      "stack": ["React", "Tailwind", "Go", "WebSockets"],
+      "architecture": "Custom binary protocol for message efficiency.",
+      "challenges": {
+        "en": "Synchronizing state across disrupted connections.",
+        "fr": "Synchronisation de l'état à travers des connexions instables."
+      },
+      "optimization": {
+        "en": "Binary packing reduced payload size by 40% vs JSON.",
+        "fr": "Le binary packing a réduit la taille du payload de 40% vs JSON."
+      }
+    },
+    "links": {
+      "github": "https://github.com/wael/wael-chatoui"
+    }
+  },
+  {
+    "id": "pipex",
+    "title": "Pipex",
+    "short_desc": {
+      "en": "UNIX Pipe Mechanism Replication",
+      "fr": "Réplication du mécanisme de Pipe UNIX"
+    },
+    "type": "System",
+    "year": "2023",
+    "cover_image": "/assets/placeholder-pipex.jpg",
+    "problem": {
+      "en": "Understanding how shell piping (`|`) works at a kernel level.",
+      "fr": "Comprendre comment le piping shell (`|`) fonctionne au niveau kernel."
+    },
+    "solution": {
+      "en": "Recreated the pipe mechanism in C using `fork`, `pipe`, and `execve`.",
+      "fr": "Recréation du mécanisme de pipe en C utilisant `fork`, `pipe`, et `execve`."
+    },
+    "technical": {
+      "stack": ["C", "Make", "Bash"],
+      "architecture": "Process tree management and file descriptor manipulation.",
+      "challenges": {
+        "en": "Preventing zombie processes and managing memory leaks.",
+        "fr": "Prévention des processus zombies et gestion des fuites mémoire."
+      },
+      "optimization": {
+        "en": "Zero-dependency implementation.",
+        "fr": "Implémentation sans dépendance."
+      }
+    },
+    "links": {
+      "github": "https://github.com/wael/pipex"
+    }
+  }
+]

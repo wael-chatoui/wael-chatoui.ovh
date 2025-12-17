@@ -1,0 +1,22 @@
+{
+  "common": {
+    "recruiterView": "Vue Recruteur",
+    "technicalView": "Vue Technique",
+    "viewToggle": "Changer de vue"
+  },
+  "nav": {
+    "projects": "Projets",
+    "about": "À propos",
+    "lab": "Mini-Lab",
+    "contact": "Contact"
+  },
+  "hero": {
+    "role": "Ingénieur Frontend",
+    "bio": "Construction d'interfaces robustes avec une précision d'ingénieur."
+  },
+  "projects": {
+    "title": "Travaux Sélectionnés",
+    "subtitle": "Présentation d'applications résolvant des problèmes réels.",
+    "viewCaseStudy": "Voir l'étude de cas"
+  }
+}
