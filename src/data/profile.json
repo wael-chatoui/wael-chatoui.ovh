@@ -1,27 +1,27 @@
 {
   "name": "Wael",
   "role": {
-    "en": "Frontend Engineer",
-    "fr": "Ingénieur Frontend"
+    "en": "Computer science Student",
+    "fr": "Étudiant en Informatique"
   },
   "tagline": {
     "en": "Building precision-engineered web interfaces.",
     "fr": "Création d'interfaces web de haute précision."
   },
   "bio": {
-    "short": {
-      "en": "Frontend specialist focused on scalable architecture and intuitive UX.",
-      "fr": "Spécialiste frontend focalisé sur l'architecture évolutive et l'UX intuitive."
+    "recruiter": {
+      "en": "Computer science student focused on scalable architecture and intuitive UX.",
+      "fr": "Étudiant en Informatique focalisé sur l'architecture évolutive et l'UX intuitive."
     },
-    "long": {
-      "en": "Currently studying at 42 Paris, I bridge the gap between complex backend logic and fluid user interfaces. I treat frontend development with the same rigor as systems programming.",
-      "fr": "Actuellement étudiant à 42 Paris, je fais le lien entre la logique backend complexe et les interfaces utilisateur fluides. Je traite le développement frontend avec la même rigueur que la programmation système."
+    "technical": {
+      "en": "Currently studying at 42 Paris, I bridge the gap between complex backend logic and fluid user interfaces. I treat computer science with the same rigor as systems programming.",
+      "fr": "Actuellement étudiant à 42 Paris, je fais le lien entre la logique backend complexe et les interfaces utilisateur fluides. Je traite l'informatique avec la même rigueur que la programmation système."
     }
   },
   "social": {
-    "github": "https://github.com/wael",
-    "linkedin": "https://linkedin.com/in/wael",
-    "email": "contact@wael.dev"
+    "github": "https://github.com/wael-chatoui",
+    "linkedin": "https://linkedin.com/in/wael-chatoui",
+    "email": "chatoui.wael40@gmail.com"
   },
   "location": "Paris, France"
 }

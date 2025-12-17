@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Menu, X, Code2, User, Globe } from 'lucide-react';
 import { useViewMode } from '../../context/ViewModeContext';
@@ -8,6 +8,7 @@ const Navbar = () => {
   const { t, i18n } = useTranslation();
   const { viewMode, toggleViewMode, isTechnical } = useViewMode();
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
 
   const toggleLang = () => {
     i18n.changeLanguage(i18n.language === 'en' ? 'fr' : 'en');
@@ -25,15 +26,33 @@ const Navbar = () => {
       isTechnical ? 'bg-slate-950/80 border-sky-900/50' : 'bg-slate-900/80 border-slate-800'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-16 relative">
 
-          {/* Logo */}
-          <div className="flex-shrink-0 font-bold text-xl tracking-tighter">
-            <span className={isTechnical ? 'text-sky-400 font-mono' : 'text-slate-100'}>
-              {isTechnical ? '<Wael />' : 'Wael.'}
-            </span>
+          {/* Mobile View Toggle (Left) */}
+          <div className="md:hidden">
+            <button
+                onClick={toggleViewMode}
+                className={`cursor-pointer flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium border transition-all ${
+                  isTechnical
+                    ? 'border-sky-500 text-sky-400 bg-sky-950/20 hover:bg-sky-950/40'
+                    : 'border-slate-600 text-slate-300 hover:border-slate-400'
+                }`}
+              >
+                {isTechnical ? <Code2 size={14} /> : <User size={14} />}
+                <span>{isTechnical ? 'Tech' : 'Recr'}</span>
+              </button>
           </div>
-
+          {/* Logo - Only visible when not on home */}
+          {location.pathname !== '/' && (
+            <NavLink
+              to="/"
+              className="absolute left-1/2 -translate-x-1/2 md:static md:translate-x-0 md:left-auto flex-shrink-0 font-bold text-xl tracking-tighter transition-opacity duration-300"
+            >
+              <span className={isTechnical ? 'text-sky-400 font-mono' : 'text-slate-100'}>
+                {isTechnical ? '<Wael />' : 'Wael.'}
+              </span>
+            </NavLink>
+          )}
           {/* Desktop Menu */}
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-8">
@@ -72,7 +91,7 @@ const Navbar = () => {
             {/* View Mode Toggle */}
             <button
               onClick={toggleViewMode}
-              className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium border transition-all ${
+              className={`cursor-pointer flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium border transition-all ${
                 isTechnical
                   ? 'border-sky-500 text-sky-400 bg-sky-950/20 hover:bg-sky-950/40'
                   : 'border-slate-600 text-slate-300 hover:border-slate-400'
@@ -117,10 +136,7 @@ const Navbar = () => {
                <button onClick={toggleLang} className="text-slate-400 flex items-center gap-2">
                  <Globe size={16} /> {i18n.language.toUpperCase()}
                </button>
-               <button onClick={toggleViewMode} className="text-sky-400 flex items-center gap-2">
-                 {isTechnical ? <Code2 size={16} /> : <User size={16} />}
-                 {isTechnical ? 'Tech' : 'Recruiter'}
-               </button>
+
             </div>
           </div>
         </div>
