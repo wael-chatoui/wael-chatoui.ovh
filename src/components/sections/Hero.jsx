@@ -1,16 +1,10 @@
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { ArrowRight, MapPin, Circle, Github, Linkedin, Mail, Download } from 'lucide-react';
+import { ArrowRight, Github, Linkedin, Mail } from 'lucide-react';
 import { useViewMode } from '../../context/ViewModeContext';
 import Container from '../ui/Container';
 import profileData from '../../data/profile.json';
-
-const Logo42 = ({ className }) => (
-  <svg viewBox="0 0 100 100" className={className} fill="currentColor">
-    <path d="M30 20 h10 v30 h15 v10 h-15 v15 h-10 v-15 h-15 v-10 l15 -30 z m0 10 l-8 18 h8 v-18 z" />
-    <path d="M70 20 h-25 v10 h15 v5 c0 8 -4 14 -12 14 s-12 -6 -12 -14 h-10 c0 15 8 24 22 24 s22 -9 22 -24 v-15 z" />
-  </svg>
-);
+import { NavLink } from 'react-router-dom';
 
 const Hero = () => {
   const { t, i18n } = useTranslation();
@@ -18,88 +12,88 @@ const Hero = () => {
   const lang = i18n.language;
 
   return (
-    <section className="pt-24 pb-12 md:pt-32 md:pb-20">
-      <Container>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="relative w-full rounded-3xl overflow-hidden bg-slate-950 text-white shadow-2xl"
-        >
-           {/* Background 42 Logo */}
-           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.03] pointer-events-none select-none">
-              <Logo42 className="w-[600px] h-[600px]" />
-           </div>
+    <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
+        {/* Subtle Background Elements - very minimal as requested */}
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+            <div className={`absolute top-[-10%] right-[-5%] w-[500px] h-[500px] rounded-full blur-[120px] opacity-20 ${isTechnical ? 'bg-sky-900' : 'bg-slate-800'}`} />
+        </div>
 
-           {/* Abstract Gradients */}
-           <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-sky-900/20 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2" />
-           <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-indigo-900/20 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2" />
+      <Container className="relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-start">
+            {/* Left Content - Editorial Style */}
+            <div className="md:col-span-8 flex flex-col space-y-8">
 
-           <div className="relative z-10 px-6 py-20 md:px-12 md:py-24 flex flex-col items-center text-center max-w-4xl mx-auto space-y-8">
-
-              {/* Status Pill */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.2 }}
-                className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-white/10 text-white/80 border border-white/10 backdrop-blur-sm"
-              >
-                <Circle size={8} fill="currentColor" className="text-green-400 animate-pulse" />
-                <span>Available for work</span>
-              </motion.div>
-
-              {/* Main Heading */}
-              <div className="space-y-4">
-                <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-tight">
-                  {profileData.name}<span className="text-sky-500">.</span>
-                </h1>
-                <h2 className="text-xl md:text-3xl text-gray-400 font-light">
-                  {profileData.role[lang]}
-                </h2>
-              </div>
-
-              {/* Bio */}
-              <p className="text-lg md:text-xl text-gray-300 max-w-2xl leading-relaxed">
-                {isTechnical ? profileData.bio.technical[lang] : profileData.bio.recruiter[lang]}
-              </p>
-
-              {/* Action Buttons */}
-              <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
-                 <a
-                  href="/projects"
-                  className="group inline-flex items-center gap-2 px-8 py-4 rounded-full bg-white text-black font-semibold text-lg transition-transform hover:-translate-y-1"
+                {/* 42 Logo - Top Left */}
+                <motion.div
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className="mb-4"
                 >
-                  <span>{t('nav.projects')}</span>
-                  <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-                </a>
+                    <img
+                        src="/42p-removebg-preview.png"
+                        alt="42 Paris"
+                        className="h-12 w-auto opacity-80 hover:opacity-100 transition-opacity"
+                    />
+                </motion.div>
 
-                <a
-                  href="mailto:contact@wael.dev"
-                   className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-white/5 text-white font-medium border border-white/10 hover:bg-white/10 transition-colors"
+                {/* Main Heading & Role */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.1 }}
                 >
-                  <Mail size={20} />
-                  <span>Contact Me</span>
-                </a>
-              </div>
+                    <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-white mb-4">
+                        {profileData.name}
+                        <span className="text-sky-500">.</span>
+                    </h1>
+                    <h2 className="text-xl md:text-2xl text-gray-400 font-light tracking-wide flex items-center gap-3">
+                         {profileData.role[lang]}
+                    </h2>
+                </motion.div>
 
-              {/* Footer Metadata */}
-              <div className="flex flex-wrap items-center justify-center gap-6 md:gap-12 pt-8 text-sm text-gray-500 font-mono">
-                  <div className="flex items-center gap-2">
-                    <MapPin size={16} />
-                    <span>{profileData.location}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                     <Logo42 className="w-5 h-5 opacity-70" />
-                     <span>42 Paris</span>
-                  </div>
-                  <div className="flex gap-4">
-                     <a href={profileData.social.github} target="_blank" rel="noreferrer" className="hover:text-white transition-colors"><Github size={20}/></a>
-                     <a href={profileData.social.linkedin} target="_blank" rel="noreferrer" className="hover:text-white transition-colors"><Linkedin size={20}/></a>
-                  </div>
-              </div>
+                {/* Bio */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                    className="max-w-2xl"
+                >
+                    <p className={`text-lg md:text-xl leading-relaxed ${isTechnical ? 'text-gray-300 font-mono text-sm md:text-base border-l-2 border-sky-500/30 pl-4' : 'text-gray-400'}`}>
+                        {isTechnical ? profileData.bio.technical[lang] : profileData.bio.recruiter[lang]}
+                    </p>
+                </motion.div>
 
-           </div>
-        </motion.div>
+                {/* Actions */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.3 }}
+                    className="flex flex-wrap items-center gap-6 pt-4"
+                >
+                     <NavLink
+                        to="/projects"
+                        className="group flex items-center gap-2 text-white font-medium border-b border-sky-500/0 hover:border-sky-500 transition-all pb-1"
+                    >
+                        <span>{t('nav.projects')}</span>
+                        <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform text-sky-500" />
+                    </NavLink>
+
+                    <div className="flex items-center gap-4 text-gray-500">
+                        <div className="h-px w-8 bg-gray-800"></div>
+                        <a href={profileData.social.github} target="_blank" rel="noreferrer" className="hover:text-white transition-colors"><Github size={20}/></a>
+                        <a href={profileData.social.linkedin} target="_blank" rel="noreferrer" className="hover:text-white transition-colors"><Linkedin size={20}/></a>
+                        <NavLink to="/contact" className="hover:text-white transition-colors"><Mail size={20}/></NavLink>
+                    </div>
+                </motion.div>
+            </div>
+
+            {/* Right Column - potentially for data visualization or minimal stats in V2 */}
+            <div className="md:col-span-4 hidden md:flex justify-end items-start opacity-50">
+               {/* Minimal decorative or stats could go here, for now keeping it clean as per instructions */}
+            </div>
+
+        </div>
       </Container>
     </section>
   );

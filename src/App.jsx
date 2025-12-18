@@ -3,7 +3,7 @@ import MainLayout from './components/layout/MainLayout';
 import Home from './pages/Home';
 import Projects from './pages/Projects';
 import ProjectDetail from './pages/ProjectDetail';
-import Lab from './pages/Lab';
+
 import Contact from './pages/Contact';
 import { NotFound } from './pages/Placeholders';
 
@@ -15,7 +15,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="projects" element={<Projects />} />
           <Route path="projects/:id" element={<ProjectDetail />} />
-          <Route path="lab" element={<Lab />} />
+
           <Route path="contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />
         </Route>

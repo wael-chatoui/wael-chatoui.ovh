@@ -3,7 +3,7 @@
     "id": "exp-chatify",
     "type": "work",
     "role": {
-      "en": "FullStack Dev",
+      "en": "FullStack Developer",
       "fr": "Développeur FullStack"
     },
     "company": "Chatify",
@@ -38,7 +38,7 @@
     "logo": "42"
   },
   {
-    "id": "exp-2",
+    "id": "hack-1",
     "type": "hackathon",
     "role": {
       "en": "Frontend Lead",
@@ -46,8 +46,8 @@
     },
     "company": "Hack the fork",
     "date": {
-      "en": "Nov 2024",
-      "fr": "Nov 2024"
+      "en": "Dec 2025",
+      "fr": "Dec 2025"
     },
     "description": {
       "en": "'AgriFlow', a sustainable agriculture dashboard. The purpose was to help french farmers to manage their crops and reduce waste.",
@@ -57,30 +57,30 @@
     "link": "#"
   },
   {
-    "id": "exp-3",
-    "type": "freelance",
+    "id": "hack-2",
+    "type": "hackathon",
     "role": {
-      "en": "Frontend Developer",
-      "fr": "Développeur Frontend"
+      "en": "Frontend Lead",
+      "fr": "Lead Frontend"
     },
-    "company": "Stealth Start-up",
+    "company": "Station F",
     "date": {
-      "en": "June 2024 - Sept 2024",
-      "fr": "Juin 2024 - Sept 2024"
+      "en": "Dec 2025",
+      "fr": "Dec 2025"
     },
     "description": {
-      "en": "Developed the MVP for a logistics SaaS. Implemented real-time tracking and complex forms.",
-      "fr": "Développement du MVP pour un SaaS logistique. Implémentation du suivi en temps réel et de formulaires complexes."
+      "en": "'AgriFlow', a sustainable agriculture dashboard. The purpose was to help french farmers to manage their crops and reduce waste.",
+      "fr": "'AgriFlow', un tableau de bord pour l'agriculture durable. Le but était d'aider les agriculteurs français à gérer leurs récoltes et réduire le gaspillage."
     },
-    "skills": ["Next.js", "Tailwind", "Supabase"],
+    "skills": ["React", "Next.js", "Tailwind", "Supabase", "React Native", "Expo", "Data Viz", "Rapid Prototyping"],
     "link": "#"
   },
   {
     "id": "exp-ecommerce",
     "type": "project",
     "role": {
-      "en": "Creator & Developer",
-      "fr": "Créateur & Développeur"
+      "en": "FullStack Developer",
+      "fr": "Développeur FullStack"
     },
     "company": "ASLAN Shop",
     "date": {
@@ -88,10 +88,10 @@
       "fr": "2024"
     },
     "description": {
-      "en": "Launched a custom e-commerce platform for a clothing brand. Integrated payment gateways and inventory management.",
-      "fr": "Lancement d'une plateforme e-commerce sur mesure pour une marque de vêtements. Intégration des paiements et gestion des stocks."
+      "en": "Launched a custom e-commerce platform for a clothing brand. Integrated payment gateways and inventory management. In less than 2 weeks.",
+      "fr": "Lancement d'une plateforme e-commerce sur mesure pour une marque de vêtements. Intégration des paiements et gestion des stocks. En moins de 2 semaines."
     },
-    "skills": ["Shopify / Custom", "Stripe", "UI/UX Design", "Marketing"],
+    "skills": ["Shopify & Custom", "Stripe", "UI/UX Design", "Next.js", "Tailwind", "Supabase", "React", "Node.js"],
     "link": "#"
   }
 ]

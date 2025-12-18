@@ -35,40 +35,6 @@
     }
   },
   {
-    "id": "chatoui",
-    "title": "ChatOUI",
-    "short_desc": {
-      "en": "Real-time Messaging Protocol Implementation",
-      "fr": "Implémentation de protocole de messagerie temps réel"
-    },
-    "type": "System / Web",
-    "year": "2024",
-    "cover_image": "/assets/placeholder-chat.jpg",
-    "problem": {
-      "en": "Existing chat solutions were bloated. Goal was to understand WebSocket internals.",
-      "fr": "Solutions de chat existantes trop lourdes. Objectif : comprendre les internes des WebSockets."
-    },
-    "solution": {
-      "en": "A lightweight, custom protocol on top of TCP, visualized with a modern React frontend.",
-      "fr": "Un protocole léger personnalisé sur TCP, visualisé avec un frontend React moderne."
-    },
-    "technical": {
-      "stack": ["React", "Tailwind", "Go", "WebSockets"],
-      "architecture": "Custom binary protocol for message efficiency.",
-      "challenges": {
-        "en": "Synchronizing state across disrupted connections.",
-        "fr": "Synchronisation de l'état à travers des connexions instables."
-      },
-      "optimization": {
-        "en": "Binary packing reduced payload size by 40% vs JSON.",
-        "fr": "Le binary packing a réduit la taille du payload de 40% vs JSON."
-      }
-    },
-    "links": {
-      "github": "https://github.com/wael/wael-chatoui"
-    }
-  },
-  {
     "id": "pipex",
     "title": "Pipex",
     "short_desc": {
@@ -99,7 +65,7 @@
       }
     },
     "links": {
-      "github": "https://github.com/wael/pipex"
+      "github": "https://github.com/wael-chatoui/42-pipex"
     }
   }
 ]

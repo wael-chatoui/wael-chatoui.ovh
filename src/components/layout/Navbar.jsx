@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { Menu, X, Code2, User, Globe } from 'lucide-react';
 import { useViewMode } from '../../context/ViewModeContext';
@@ -17,13 +18,13 @@ const Navbar = () => {
   const navLinks = [
     { to: '/', label: t('nav.about') }, // Home serves as About/Story
     { to: '/projects', label: t('nav.projects') },
-    { to: '/lab', label: t('nav.lab') },
+
     { to: '/contact', label: t('nav.contact') },
   ];
 
   return (
     <nav className={`fixed top-0 w-full z-50 border-b backdrop-blur-md transition-colors duration-300 ${
-      isTechnical ? 'bg-slate-950/80 border-sky-900/50' : 'bg-slate-900/80 border-slate-800'
+      isTechnical ? 'bg-[#0B1120]/90 border-sky-900/30' : 'bg-slate-900/90 border-slate-800'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 relative">
@@ -115,32 +116,41 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Menu */}
-      {isOpen && (
-        <div className="md:hidden bg-slate-900 border-b border-slate-800">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            {navLinks.map((link) => (
-              <NavLink
-                key={link.to}
-                to={link.to}
-                onClick={() => setIsOpen(false)}
-                className={({ isActive }) =>
-                  `block px-3 py-2 rounded-md text-base font-medium ${
-                    isActive ? 'text-white bg-slate-800' : 'text-slate-400 hover:text-white hover:bg-slate-800'
-                  }`
-                }
-              >
-                {link.label}
-              </NavLink>
-            ))}
-            <div className="flex items-center justify-between px-3 py-2 mt-4 border-t border-slate-800 pt-4">
-               <button onClick={toggleLang} className="text-slate-400 flex items-center gap-2">
-                 <Globe size={16} /> {i18n.language.toUpperCase()}
-               </button>
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.2 }}
+            className="md:hidden bg-slate-900 border-b border-slate-800 overflow-hidden"
+          >
+            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+              {navLinks.map((link) => (
+                <NavLink
+                  key={link.to}
+                  to={link.to}
+                  onClick={() => setIsOpen(false)}
+                  className={({ isActive }) =>
+                    `block px-3 py-2 rounded-md text-base font-medium ${
+                      isActive ? 'text-white bg-slate-800' : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                    }`
+                  }
+                >
+                  {link.label}
+                </NavLink>
+              ))}
+              <div className="flex items-center justify-between px-3 py-2 mt-4 border-t border-slate-800 pt-4">
+                 <button onClick={toggleLang} className="text-slate-400 flex items-center gap-2">
+                   <Globe size={16} /> {i18n.language.toUpperCase()}
+                 </button>
 
+              </div>
             </div>
-          </div>
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 };
