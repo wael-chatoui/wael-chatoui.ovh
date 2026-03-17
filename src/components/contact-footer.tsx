@@ -9,10 +9,10 @@ export default function ContactFooter() {
 
   return (
     <>
-      <section id="contact" className="relative py-32 lg:py-40">
+      <section id="contact" className="snap-section relative min-h-screen flex items-center py-20 lg:py-0">
         <div className="absolute top-0 left-6 right-6 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
 
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-6xl mx-auto px-6 w-full">
           <div className="max-w-2xl mx-auto text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}

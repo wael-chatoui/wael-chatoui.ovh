@@ -7,11 +7,11 @@ export default function About() {
   const t = useTranslations('about');
 
   return (
-    <section id="about" className="relative py-32 lg:py-40">
+    <section id="about" className="snap-section relative min-h-screen flex items-center py-20 lg:py-0">
       {/* Top separator line */}
       <div className="absolute top-0 left-6 right-6 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
 
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="max-w-6xl mx-auto px-6 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
           {/* Label */}
           <motion.div

@@ -8,7 +8,8 @@
   }
 
   html {
-    @apply scroll-smooth;
+    scroll-snap-type: y proximity;
+    scroll-behavior: smooth;
     scrollbar-width: thin;
     scrollbar-color: #27272a #09090b;
   }
@@ -37,6 +38,12 @@
   z-index: 50;
   animation: grain 8s steps(10) infinite;
   opacity: 0.3;
+}
+
+/* Full-page scroll snap */
+.snap-section {
+  scroll-snap-align: start;
+  scroll-snap-stop: normal;
 }
 
 /* Custom scrollbar for webkit */
