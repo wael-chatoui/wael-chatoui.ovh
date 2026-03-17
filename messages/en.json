@@ -28,9 +28,14 @@
     "viewProject": "View project"
   },
   "contact": {
-    "title": "Let's connect",
-    "subtitle": "Got a project in mind or just want to say hi?",
-    "email": "Email me",
+    "title": "Conversation comes first",
+    "subtitle": "That's often where good things begin.",
+    "formName": "Your name",
+    "formEmail": "Your email",
+    "formMessage": "Your message...",
+    "formSend": "Send message",
+    "email": "Email",
+    "phone": "Phone",
     "cv": "Download CV"
   },
   "footer": {

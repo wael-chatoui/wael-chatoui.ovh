@@ -28,9 +28,14 @@
     "viewProject": "Voir le projet"
   },
   "contact": {
-    "title": "Connectons-nous",
-    "subtitle": "Un projet en tête ou simplement envie de dire bonjour ?",
-    "email": "M'envoyer un email",
+    "title": "La conversation d'abord",
+    "subtitle": "C'est souvent là que les bonnes choses commencent.",
+    "formName": "Votre nom",
+    "formEmail": "Votre email",
+    "formMessage": "Votre message...",
+    "formSend": "Envoyer le message",
+    "email": "Email",
+    "phone": "Téléphone",
     "cv": "Télécharger le CV"
   },
   "footer": {

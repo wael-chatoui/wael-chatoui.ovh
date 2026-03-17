@@ -1,101 +1,138 @@
 'use client';
 
-import { motion } from 'motion/react';
+import { useRef } from 'react';
+import { motion, useInView } from 'motion/react';
 import { useTranslations } from 'next-intl';
 
 export default function ContactFooter() {
   const t = useTranslations('contact');
   const tf = useTranslations('footer');
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(sectionRef, { once: true, margin: '-10% 0px' });
 
   return (
-    <>
-      <section id="contact" className="snap-section relative min-h-screen flex items-center py-20 lg:py-0">
-        <div className="absolute top-0 left-6 right-6 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-
-        <div className="max-w-6xl mx-auto px-6 w-full">
-          <div className="max-w-2xl mx-auto text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-100px' }}
-              transition={{ duration: 0.6 }}
-            >
-              <p className="text-text-subtle text-xs tracking-[0.3em] uppercase font-body mb-6">
-                04
-              </p>
-              <h2 className="font-display text-4xl lg:text-6xl font-bold tracking-tight mb-4">
-                {t('title')}
-              </h2>
-              <p className="text-text-muted font-body text-lg mb-12">
-                {t('subtitle')}
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center"
-            >
-              <a
-                href="mailto:wael.chatoui@supdevinci.fr"
-                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-text text-bg font-body text-sm font-medium rounded-full hover:bg-accent transition-colors duration-300 no-underline"
+    <div ref={sectionRef}>
+      <motion.div
+        animate={{
+          clipPath: isInView
+            ? 'inset(0% 0 0 0)'
+            : 'inset(100% 0 0 0)',
+        }}
+        transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+        style={{ clipPath: 'inset(100% 0 0 0)' }}
+      >
+        <section
+          id="contact"
+          className="snap-section relative min-h-screen flex items-center py-20 lg:py-0"
+          style={{ backgroundColor: '#141414' }}
+        >
+          <div className="max-w-6xl mx-auto px-6 w-full">
+            <div className="max-w-2xl mx-auto text-center">
+              {/* Header */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
               >
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-                {t('email')}
-              </a>
-              <a
-                href="/cv.pdf"
-                target="_blank"
-                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 border border-border text-text-muted font-body text-sm font-medium rounded-full hover:text-text hover:border-text-subtle transition-all duration-300 no-underline"
-              >
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-                {t('cv')}
-              </a>
-            </motion.div>
+                <p className="text-text-subtle text-xs tracking-[0.3em] uppercase font-body mb-6">
+                  04
+                </p>
+                <h2 className="font-display text-4xl lg:text-6xl font-bold tracking-tight mb-4">
+                  {t('title')}
+                </h2>
+                <p className="text-text-muted font-body text-lg mb-14">
+                  {t('subtitle')}
+                </p>
+              </motion.div>
 
-            {/* Social links */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4 }}
-              className="flex items-center justify-center gap-6 mt-12"
-            >
-              <SocialLink href="https://github.com/Fraawdrinn" label="GitHub">
-                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
-              </SocialLink>
-              <SocialLink href="https://linkedin.com/in/wael-chatoui" label="LinkedIn">
-                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-                <rect x="2" y="9" width="4" height="12" />
-                <circle cx="4" cy="4" r="2" />
-              </SocialLink>
-            </motion.div>
+              {/* Contact Form */}
+              <motion.form
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                className="flex flex-col gap-4 mb-14 text-left"
+                onSubmit={(e) => e.preventDefault()}
+              >
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder={t('formName')}
+                    required
+                    className="flex-1 bg-white/[0.04] border border-border/50 rounded-lg px-4 py-3 text-sm font-body text-text placeholder:text-text-subtle/60 focus:outline-none focus:border-text-subtle transition-colors duration-300"
+                  />
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder={t('formEmail')}
+                    required
+                    className="flex-1 bg-white/[0.04] border border-border/50 rounded-lg px-4 py-3 text-sm font-body text-text placeholder:text-text-subtle/60 focus:outline-none focus:border-text-subtle transition-colors duration-300"
+                  />
+                </div>
+                <textarea
+                  name="message"
+                  placeholder={t('formMessage')}
+                  required
+                  rows={5}
+                  className="w-full bg-white/[0.04] border border-border/50 rounded-lg px-4 py-3 text-sm font-body text-text placeholder:text-text-subtle/60 focus:outline-none focus:border-text-subtle transition-colors duration-300 resize-none"
+                />
+                <button
+                  type="submit"
+                  className="self-center inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-text text-bg font-body text-sm font-medium rounded-full hover:bg-accent transition-colors duration-300 mt-2"
+                >
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                  {t('formSend')}
+                </button>
+              </motion.form>
+
+              {/* Contact links */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.7, duration: 0.6 }}
+                className="flex flex-wrap items-center justify-center gap-5"
+              >
+                <ContactLink href="https://github.com/Fraawdrinn" label="GitHub">
+                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+                </ContactLink>
+                <ContactLink href="https://linkedin.com/in/wael-chatoui" label="LinkedIn">
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                  <rect x="2" y="9" width="4" height="12" />
+                  <circle cx="4" cy="4" r="2" />
+                </ContactLink>
+                <ContactLink href="mailto:wael.chatoui@supdevinci.fr" label={t('email')}>
+                  <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </ContactLink>
+                <ContactLink href="tel:+33600000000" label={t('phone')}>
+                  <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0122 16.92z" />
+                </ContactLink>
+              </motion.div>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Footer */}
-      <footer className="border-t border-border/50 py-8">
-        <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-text-subtle text-xs font-body">
-            &copy; {new Date().getFullYear()} Wael Chatoui. {tf('rights')}
-          </p>
-          <p className="text-text-subtle text-xs font-body">
-            {tf('madeWith')} Next.js & Framer Motion
-          </p>
-        </div>
-      </footer>
-    </>
+        {/* Footer */}
+        <footer className="border-t border-white/[0.06] py-8" style={{ backgroundColor: '#141414' }}>
+          <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p className="text-text-subtle text-xs font-body">
+              &copy; {new Date().getFullYear()} Wael Chatoui. {tf('rights')}
+            </p>
+            <p className="text-text-subtle text-xs font-body">
+              {tf('madeWith')} Next.js & Framer Motion
+            </p>
+          </div>
+        </footer>
+      </motion.div>
+    </div>
   );
 }
 
-function SocialLink({
+function ContactLink({
   href,
   label,
   children,
@@ -107,13 +144,12 @@ function SocialLink({
   return (
     <a
       href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label={label}
-      className="w-10 h-10 rounded-full border border-border/50 flex items-center justify-center text-text-subtle hover:text-text hover:border-border transition-all duration-300 no-underline"
+      target={href.startsWith('mailto:') || href.startsWith('tel:') ? undefined : '_blank'}
+      rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
+      className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border/40 text-text-subtle text-xs font-body hover:text-text hover:border-border transition-all duration-300 no-underline"
     >
       <svg
-        className="w-4 h-4"
+        className="w-3.5 h-3.5"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -123,6 +159,7 @@ function SocialLink({
       >
         {children}
       </svg>
+      {label}
     </a>
   );
 }
