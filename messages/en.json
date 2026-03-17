@@ -1,0 +1,40 @@
+{
+  "hero": {
+    "greeting": "Hey, I'm",
+    "name": "Wael Chatoui",
+    "tagline": "Turning ideas into interfaces",
+    "cta": "See my work",
+    "contact": "Get in touch"
+  },
+  "nav": {
+    "about": "About",
+    "skills": "Skills",
+    "projects": "Projects",
+    "contact": "Contact"
+  },
+  "about": {
+    "title": "About me",
+    "p1": "I'm an 18-year-old student developer at Sup de Vinci Bordeaux, driven by curiosity and a deep love for building things that live on screens.",
+    "p2": "Currently in my first year of a Bachelor's in Computer Science, I'm sharpening my skills in web development, software engineering, and exploring the worlds of app development and AI.",
+    "p3": "When I'm not coding, I'm probably learning something new, tinkering with a side project, or diving into the latest tech."
+  },
+  "skills": {
+    "title": "Skills & Tools",
+    "subtitle": "Technologies I work with daily"
+  },
+  "projects": {
+    "title": "Featured Projects",
+    "viewAll": "View all projects",
+    "viewProject": "View project"
+  },
+  "contact": {
+    "title": "Let's connect",
+    "subtitle": "Got a project in mind or just want to say hi?",
+    "email": "Email me",
+    "cv": "Download CV"
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "madeWith": "Built with"
+  }
+}

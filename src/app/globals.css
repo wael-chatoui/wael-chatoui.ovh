@@ -1,197 +1,57 @@
-/* ======================= */
-/*         IMPORTS         */
-/* ======================= */
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* ======================= */
-/*      CSS VARIABLES      */
-/* ======================= */
-
-:root {
-  --background: #f4f1e8;
-  --foreground: #333;
-  --darkened-background: #adaaa2;
-  --brown: #9b4819;
-  --brown2: #a3503a;
-
-  --swiper-pagination-color: #9b4819;
-}
-
-/* ======================= */
-/*       BASE STYLES       */
-/* ======================= */
-
 @layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    @apply scroll-smooth;
+    scrollbar-width: thin;
+    scrollbar-color: #27272a #09090b;
+  }
+
   body {
-    @apply text-[var(--foreground)] bg-[var(--darkened-background)];
+    @apply bg-bg text-text font-body antialiased;
   }
-  header, main {
-    @apply bg-[var(--background)]
-  }
-  p {
-    @apply text-sm lg:text-lg w-full lg:w-[52vw] pl-10 lg:pl-16;
-  }
-  a {
-    @apply underline text-secondary;
+
+  ::selection {
+    @apply bg-text/15;
   }
 }
 
-/* ======================= */
-/*      COMPONENTS         */
-/* ======================= */
-
-@layer components {
-  /* Menu Button */
-  .menu {
-    --s: 24px; /* Size */
-    --c: var(--brown2); /* Color */
-
-    height: var(--s);
-    aspect-ratio: 1;
-    border: none;
-    padding: 0;
-    border-inline: calc(var(--s)/2) solid transparent;
-    box-sizing: content-box;
-    
-    --_g1: linear-gradient(var(--c) 20%, transparent 0 80%, var(--c) 0) no-repeat content-box border-box;
-    --_g2: radial-gradient(circle closest-side at 50% 12.5%, var(--c) 95%, transparent) repeat-y content-box border-box;
-    
-    background:
-      var(--_g2) left var(--_p, 0px) top,
-      var(--_g1) left calc(var(--s)/10 + var(--_p, 0px)) top,
-      var(--_g2) right var(--_p, 0px) top,
-      var(--_g1) right calc(var(--s)/10 + var(--_p, 0px)) top;
-    
-    background-size: 20% 80%, 40% 100%;
-    position: relative;
-    clip-path: inset(0 25%);
-    -webkit-mask: linear-gradient(90deg, transparent, black 25% 75%, transparent);
-    cursor: pointer;
-    transition:
-      background-position 0.3s var(--_s, 0.3s),
-      clip-path 0s var(--_s, 0.6s);
-    appearance: none;
-  }
-
-  .menu:before,
-  .menu:after {
-    content: "";
-    position: absolute;
-    border-radius: var(--s);
-    inset: 40% 0;
-    background: var(--c);
-    transition: transform 0.3s calc(0.3s - var(--_s, 0.3s));
-  }
-
-  .menu:checked {
-    clip-path: inset(0);
-    --_p: calc(-1 * var(--s));
-    --_s: 0s;
-  }
-
-  .menu:checked:before {
-    transform: rotate(45deg);
-  }
-
-  .menu:checked:after {
-    transform: rotate(-45deg);
-  }
-
-  .menu:focus-visible {
-    clip-path: none;
-    -webkit-mask: none;
-    border: none;
-    outline: 2px solid var(--c);
-    outline-offset: 5px;
-  }
-
-  /* Animated Path */
-  .path {
-    fill: none;
-    stroke: black;
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    stroke-dasharray: 1500; /* Adjust to match path length */
-    stroke-dashoffset: 1500; /* Start hidden */
-    animation: drawPath 4s ease-in-out infinite alternate;
-  }
+/* Grain overlay for texture */
+.grain::before {
+  content: '';
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  right: -50%;
+  bottom: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 50;
+  animation: grain 8s steps(10) infinite;
+  opacity: 0.3;
 }
 
-/* ======================= */
-/*        UTILITIES        */
-/* ======================= */
-
-@layer utilities {
-
-
-  .presentation-sentences {
-    @apply text-center;
-    
-    & span {
-      @apply inline-block transition-transform duration-300 ease-in-out hover:scale-105 cursor-pointer;
-      
-      &.name {
-        @apply hover:scale-110;
-      }
-    }
-  }
-  .main-title {
-    @apply text-2xl lg:text-4xl font-bold pb-6;
-  }
-  .main-subtitle {
-    @apply text-xl lg:text-2xl font-bold py-6 pt-10 pl-12;
-  }
-  .mark {
-    @apply italic font-semibold;
-  }
-
+/* Custom scrollbar for webkit */
+::-webkit-scrollbar {
+  width: 6px;
 }
 
-
-
-
-
-/* ======================= */
-/*        ANIMATIONS       */
-/* ======================= */
-
-@keyframes drawPath {
-  0% {
-    stroke-dashoffset: 1500;
-  }
-  100% {
-    stroke-dashoffset: 0;
-  }
+::-webkit-scrollbar-track {
+  @apply bg-bg;
 }
 
-.swiper-button-prev {
-  @apply hidden lg:flex left-0 ml-2 p-3 rounded-full w-10 justify-center items-center;
-}
-.swiper-button-next {
-  @apply  hidden lg:flex right-0 mr-2 p-3 rounded-full w-10 justify-center items-center;
-}
-/* Swiper Navigation Buttons */
-/* .swiper-button-prev,
-.swiper-button-next {
-  @apply ;
-} */
-.swiper-slide {
-  @apply w-52;
-}
-/* Modifier l'icône des flèches */
-.swiper-button-prev::after,
-.swiper-button-next::after {
-  @apply text-primary hidden lg:block;
+::-webkit-scrollbar-thumb {
+  @apply bg-border rounded-full;
 }
 
-/* Swiper Pagination Dots */
-.swiper-pagination-bullet {
-  @apply w-3 h-3 bg-darkened-background opacity-50 relative top-2;
-}
-.swiper-pagination-bullet-active {
-  @apply text-accent opacity-100 scale-125;
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-text-subtle;
 }

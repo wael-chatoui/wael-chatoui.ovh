@@ -1,0 +1,40 @@
+{
+  "hero": {
+    "greeting": "Salut, moi c'est",
+    "name": "Wael Chatoui",
+    "tagline": "Transformer les idées en interfaces",
+    "cta": "Voir mon travail",
+    "contact": "Me contacter"
+  },
+  "nav": {
+    "about": "À propos",
+    "skills": "Compétences",
+    "projects": "Projets",
+    "contact": "Contact"
+  },
+  "about": {
+    "title": "À propos",
+    "p1": "Étudiant développeur de 18 ans à Sup de Vinci Bordeaux, animé par la curiosité et une passion profonde pour créer des choses qui vivent sur les écrans.",
+    "p2": "Actuellement en première année de Bachelor en informatique, j'affine mes compétences en développement web, en ingénierie logicielle, et j'explore les mondes du développement d'applications et de l'IA.",
+    "p3": "Quand je ne code pas, j'apprends probablement quelque chose de nouveau, je bricole un side project, ou je plonge dans les dernières nouveautés tech."
+  },
+  "skills": {
+    "title": "Compétences & Outils",
+    "subtitle": "Les technologies que j'utilise au quotidien"
+  },
+  "projects": {
+    "title": "Projets phares",
+    "viewAll": "Voir tous les projets",
+    "viewProject": "Voir le projet"
+  },
+  "contact": {
+    "title": "Connectons-nous",
+    "subtitle": "Un projet en tête ou simplement envie de dire bonjour ?",
+    "email": "M'envoyer un email",
+    "cv": "Télécharger le CV"
+  },
+  "footer": {
+    "rights": "Tous droits réservés.",
+    "madeWith": "Construit avec"
+  }
+}

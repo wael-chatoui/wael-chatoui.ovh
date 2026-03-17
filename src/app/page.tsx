@@ -1,17 +1,21 @@
-import Presentation from "@/components/presentation";
-import Footer from "@/components/footer";
-import Main from "@/components/main";
+import Navbar from "@/components/navbar";
+import Hero from "@/components/hero";
+import About from "@/components/about";
+import Skills from "@/components/skills";
+import FeaturedProjects from "@/components/featured-projects";
+import ContactFooter from "@/components/contact-footer";
 
 export default function Home() {
   return (
     <>
-      
-
-      <div className="flex flex-col min-h-screen">
-        <Presentation />
-        <Main />
-        <Footer />
-      </div>
+      <Navbar />
+      <main>
+        <Hero />
+        <About />
+        <Skills />
+        <FeaturedProjects />
+        <ContactFooter />
+      </main>
     </>
   );
 }

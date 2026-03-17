@@ -1,19 +1,21 @@
 import type { NextConfig } from "next";
+import createNextIntlPlugin from 'next-intl/plugin';
+
+const withNextIntl = createNextIntlPlugin();
 
 const nextConfig: NextConfig = {
-  output: "export",
   images: {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "github.com", // Remplace par ton domaine d'images
+        hostname: "github.com",
       },
       {
         protocol: "https",
-        hostname:"cdn.jsdeliver.net"
-      }
+        hostname: "cdn.jsdelivr.net",
+      },
     ],
-  }
+  },
 };
 
-export default nextConfig;
+export default withNextIntl(nextConfig);

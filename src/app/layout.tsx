@@ -1,39 +1,30 @@
 import type { Metadata } from "next";
-import type { Viewport } from "next";
-
-import Head from "next/head";
-
-import inter from "@/app/font";
-
+import { NextIntlClientProvider } from 'next-intl';
+import { getLocale, getMessages } from 'next-intl/server';
+import { syne, dmSans } from "@/app/font";
 import "./globals.css";
 
-export const viewport: Viewport = {
-  width: 'device-width',
-  initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
-}
-
 export const metadata: Metadata = {
-  title: "Wael Chatoui",
-  description: "Mon site portfolio !",
+  title: "Wael Chatoui — Developer",
+  description: "Student developer turning ideas into interfaces. Portfolio of Wael Chatoui.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+  const messages = await getMessages();
+
   return (
-    <html lang="en">
-      <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="icon" href="favicon.ico" sizes="any" />
-      </Head>
+    <html lang={locale} className="dark">
       <body
-        className={`${inter} max-w-[100vw] overflow-x-hidden scroll-smooth`}
+        className={`${syne.variable} ${dmSans.variable} font-body grain`}
       >
-        {children}
+        <NextIntlClientProvider messages={messages}>
+          {children}
+        </NextIntlClientProvider>
       </body>
     </html>
   );

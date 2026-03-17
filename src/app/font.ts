@@ -1,15 +1,13 @@
-import { Cabin, Inter } from 'next/font/google';
+import { Syne, DM_Sans } from 'next/font/google';
 
-const cabin = Cabin({
-  weight: '400',
+export const syne = Syne({
   subsets: ['latin'],
+  variable: '--font-syne',
+  display: 'swap',
 });
 
-const inter = Inter({
-  weight: '400',
+export const dmSans = DM_Sans({
   subsets: ['latin'],
+  variable: '--font-dm-sans',
+  display: 'swap',
 });
-
-const fonts = { cabin, inter }
-
-export default fonts;
