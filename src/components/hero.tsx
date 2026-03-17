@@ -64,7 +64,7 @@ export default function Hero() {
             >
               <a
                 href="#projects"
-                className="inline-flex items-center justify-center px-7 py-3.5 bg-text text-bg font-body text-sm font-medium rounded-full hover:bg-accent transition-colors duration-300 no-underline"
+                className="cursor-pointer inline-flex items-center justify-center px-7 py-3.5 bg-text text-bg font-body text-sm font-medium rounded-full hover:bg-accent transition-colors duration-300 no-underline"
               >
                 {t('cta')}
                 <svg className="ml-2 w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -73,7 +73,7 @@ export default function Hero() {
               </a>
               <a
                 href="#contact"
-                className="inline-flex items-center justify-center px-7 py-3.5 border border-border text-text-muted font-body text-sm font-medium rounded-full hover:text-text hover:border-text-subtle transition-all duration-300 no-underline"
+                className="cursor-pointer inline-flex items-center justify-center px-7 py-3.5 border border-border text-text-muted font-body text-sm font-medium rounded-full hover:text-text hover:border-text-subtle transition-all duration-300 no-underline"
               >
                 {t('contact')}
               </a>

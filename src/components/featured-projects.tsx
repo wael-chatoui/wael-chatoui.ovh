@@ -55,7 +55,7 @@ export default function FeaturedProjects() {
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group block no-underline"
+                  className="cursor-pointer group block no-underline"
                 >
                   <ProjectCard project={project} />
                 </a>
@@ -79,7 +79,7 @@ export default function FeaturedProjects() {
             href="https://github.com/Fraawdrinn"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-text-muted hover:text-text text-sm font-body transition-colors no-underline"
+            className="cursor-pointer inline-flex items-center gap-2 text-text-muted hover:text-text text-sm font-body transition-colors no-underline"
           >
             {t('viewAll')}
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">

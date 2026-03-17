@@ -47,7 +47,7 @@ export default function Navbar() {
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
           <a
             href="#"
-            className="font-display font-bold text-lg tracking-tight text-text no-underline hover:text-text-muted transition-colors"
+            className="cursor-pointer font-display font-bold text-lg tracking-tight text-text no-underline hover:text-text-muted transition-colors"
           >
             W.
           </a>
@@ -58,7 +58,7 @@ export default function Navbar() {
               <a
                 key={link.key}
                 href={link.href}
-                className="text-sm text-text-muted hover:text-text transition-colors duration-300 no-underline"
+                className="cursor-pointer text-sm text-text-muted hover:text-text transition-colors duration-300 no-underline"
               >
                 {t(link.key)}
               </a>
@@ -69,7 +69,7 @@ export default function Navbar() {
           {/* Mobile burger */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden relative w-6 h-5 flex flex-col justify-between"
+            className="cursor-pointer md:hidden relative w-6 h-5 flex flex-col justify-between"
             aria-label="Toggle menu"
           >
             <span
@@ -110,7 +110,7 @@ export default function Navbar() {
                 exit={{ opacity: 0, y: 10 }}
                 transition={{ delay: i * 0.08 }}
                 onClick={() => setMobileOpen(false)}
-                className="font-display text-3xl font-bold text-text hover:text-text-muted transition-colors no-underline"
+                className="cursor-pointer font-display text-3xl font-bold text-text hover:text-text-muted transition-colors no-underline"
               >
                 {t(link.key)}
               </motion.a>

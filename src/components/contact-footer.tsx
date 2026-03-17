@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { motion, useInView } from 'motion/react';
 import { useTranslations } from 'next-intl';
 
@@ -9,6 +9,38 @@ export default function ContactFooter() {
   const tf = useTranslations('footer');
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: '-10% 0px' });
+
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [errorMsg, setErrorMsg] = useState('');
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) return;
+
+    setStatus('loading');
+    setErrorMsg('');
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || 'Something went wrong.');
+      }
+
+      setStatus('success');
+      setFormData({ name: '', email: '', message: '' });
+    } catch (err) {
+      setStatus('error');
+      setErrorMsg(err instanceof Error ? err.message : 'Something went wrong.');
+    }
+  };
 
   return (
     <div ref={sectionRef}>
@@ -53,7 +85,7 @@ export default function ContactFooter() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.7, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
                 className="flex flex-col gap-4 mb-14 text-left"
-                onSubmit={(e) => e.preventDefault()}
+                onSubmit={handleSubmit}
               >
                 <div className="flex flex-col sm:flex-row gap-4">
                   <input
@@ -61,6 +93,8 @@ export default function ContactFooter() {
                     name="name"
                     placeholder={t('formName')}
                     required
+                    value={formData.name}
+                    onChange={(e) => setFormData((prev) => ({ ...prev, name: e.target.value }))}
                     className="flex-1 bg-white/[0.04] border border-border/50 rounded-lg px-4 py-3 text-sm font-body text-text placeholder:text-text-subtle/60 focus:outline-none focus:border-text-subtle transition-colors duration-300"
                   />
                   <input
@@ -68,6 +102,8 @@ export default function ContactFooter() {
                     name="email"
                     placeholder={t('formEmail')}
                     required
+                    value={formData.email}
+                    onChange={(e) => setFormData((prev) => ({ ...prev, email: e.target.value }))}
                     className="flex-1 bg-white/[0.04] border border-border/50 rounded-lg px-4 py-3 text-sm font-body text-text placeholder:text-text-subtle/60 focus:outline-none focus:border-text-subtle transition-colors duration-300"
                   />
                 </div>
@@ -76,17 +112,39 @@ export default function ContactFooter() {
                   placeholder={t('formMessage')}
                   required
                   rows={5}
+                  value={formData.message}
+                  onChange={(e) => setFormData((prev) => ({ ...prev, message: e.target.value }))}
                   className="w-full bg-white/[0.04] border border-border/50 rounded-lg px-4 py-3 text-sm font-body text-text placeholder:text-text-subtle/60 focus:outline-none focus:border-text-subtle transition-colors duration-300 resize-none"
                 />
                 <button
                   type="submit"
-                  className="self-center inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-text text-bg font-body text-sm font-medium rounded-full hover:bg-accent transition-colors duration-300 mt-2"
+                  disabled={status === 'loading'}
+                  className="cursor-pointer self-center inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-text text-bg font-body text-sm font-medium rounded-full hover:bg-accent transition-colors duration-300 mt-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                  {t('formSend')}
+                  {status === 'loading' ? (
+                    <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                    </svg>
+                  ) : (
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                  )}
+                  {status === 'loading' ? t('formSending') : t('formSend')}
                 </button>
+
+                {/* Feedback */}
+                {status === 'success' && (
+                  <p className="text-center text-sm font-body text-green-400 mt-2">
+                    {t('formSuccess')}
+                  </p>
+                )}
+                {status === 'error' && (
+                  <p className="text-center text-sm font-body text-red-400 mt-2">
+                    {errorMsg}
+                  </p>
+                )}
               </motion.form>
 
               {/* Contact links */}
@@ -146,7 +204,7 @@ function ContactLink({
       href={href}
       target={href.startsWith('mailto:') || href.startsWith('tel:') ? undefined : '_blank'}
       rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
-      className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border/40 text-text-subtle text-xs font-body hover:text-text hover:border-border transition-all duration-300 no-underline"
+      className="cursor-pointer inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border/40 text-text-subtle text-xs font-body hover:text-text hover:border-border transition-all duration-300 no-underline"
     >
       <svg
         className="w-3.5 h-3.5"

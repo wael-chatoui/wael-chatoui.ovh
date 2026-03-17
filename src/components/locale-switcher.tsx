@@ -19,7 +19,7 @@ export default function LocaleSwitcher() {
     <button
       onClick={toggle}
       disabled={isPending}
-      className={`text-xs font-body tracking-widest uppercase px-3 py-1.5 border border-border rounded-full text-text-muted hover:text-text hover:border-text-subtle transition-all duration-300 ${
+      className={`cursor-pointer text-xs font-body tracking-widest uppercase px-3 py-1.5 border border-border rounded-full text-text-muted hover:text-text hover:border-text-subtle transition-all duration-300 ${
         isPending ? 'opacity-50' : ''
       }`}
     >

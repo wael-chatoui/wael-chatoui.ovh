@@ -34,6 +34,8 @@
     "formEmail": "Votre email",
     "formMessage": "Votre message...",
     "formSend": "Envoyer le message",
+    "formSending": "Envoi...",
+    "formSuccess": "Message envoyé avec succès !",
     "email": "Email",
     "phone": "Téléphone",
     "cv": "Télécharger le CV"
