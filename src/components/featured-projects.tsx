@@ -6,6 +6,12 @@ import { useState } from 'react';
 
 const publicProjects = [
   {
+    title: 'Niko\' Life',
+    description: 'Site vitrine pour une agence de location de véhicules. Présentation de la flotte, tarifs et contact.',
+    tags: ['Next.js', 'TypeScript', 'TailwindCSS'],
+    link: 'https://github.com/wael-chatoui/nikolife-rent',
+  },
+  {
     title: 'Flashscore Scraper',
     description: 'Scraper de données sportives en temps réel. Extraction et parsing de scores, statistiques et cotes depuis Flashscore avec pipeline de stockage automatisé.',
     tags: ['Python', 'Scraping', 'Data'],
@@ -57,10 +63,10 @@ const publicProjects = [
 
 const privateProjects = [
   {
-    title: 'Niko\' Life',
-    description: 'Site vitrine pour une agence de location de véhicules. Présentation de la flotte, tarifs et contact.',
-    tags: ['Next.js', 'TypeScript', 'TailwindCSS'],
-    year: 2025,
+    title: 'Glint',
+    description: 'App iOS de crowdsourcing de données visuelles pour entreprises. Pipeline de collecte, validation et sanitisation d\'images par IA.',
+    tags: ['Swift', 'SwiftUI', 'Supabase', 'AI'],
+    year: 2026,
   },
 ];
 
