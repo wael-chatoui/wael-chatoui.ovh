@@ -69,6 +69,13 @@ const publicProjects = [
 
 const privateProjects = [
   {
+    title: 'Miria',
+    description: 'Plateforme SaaS qui connecte des experts à leurs clients via IA. Chats personnalisés, réponses 24/7, backoffice de gestion des connaissances.',
+    tags: ['Next.js', 'Supabase', 'AI', 'SaaS'],
+    year: 2025,
+    demo: 'https://miria.ai',
+  },
+  {
     title: 'Glint',
     description: 'App iOS de crowdsourcing de données visuelles pour entreprises. Pipeline de collecte, validation et sanitisation d\'images par IA.',
     tags: ['Swift', 'SwiftUI', 'Supabase', 'AI'],
@@ -109,9 +116,20 @@ function PrivateDialog({ onClose }: { onClose: () => void }) {
         <div className="space-y-5">
           {privateProjects.map((project) => (
             <div key={project.title} className="border-l-2 border-border pl-4">
-              <div className="flex items-center gap-2 mb-1">
+              <div className="flex items-center gap-2 mb-1 flex-wrap">
                 <h4 className="font-display font-semibold text-text">{project.title}</h4>
                 <span className="text-text-subtle text-xs font-body">{project.year}</span>
+                {'demo' in project && project.demo && (
+                  <a
+                    href={project.demo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-text-subtle hover:text-text text-xs font-body underline transition-colors"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    {(project.demo as string).replace('https://', '')}
+                  </a>
+                )}
               </div>
               <p className="text-text-muted text-sm font-body leading-relaxed mb-3">{project.description}</p>
               <div className="flex flex-wrap gap-1.5">
