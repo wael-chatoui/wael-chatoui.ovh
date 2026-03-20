@@ -57,12 +57,6 @@ const publicProjects = [
 
 const privateProjects = [
   {
-    title: 'Glint',
-    description: 'App iOS de crowdsourcing de données visuelles pour entreprises. Pipeline de collecte, validation et sanitisation d\'images par IA.',
-    tags: ['Swift', 'SwiftUI', 'Supabase', 'AI'],
-    year: 2026,
-  },
-  {
     title: 'Niko\' Life',
     description: 'Site vitrine pour une agence de location de véhicules. Présentation de la flotte, tarifs et contact.',
     tags: ['Next.js', 'TypeScript', 'TailwindCSS'],
