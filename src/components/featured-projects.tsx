@@ -15,7 +15,7 @@ const publicProjects = [
     title: 'Soufiane Chatoui',
     description: 'Portfolio d\'un vidéaste et réalisateur. Présentation de ses services (mariages, événements, fashion) et de ses productions cinématographiques.',
     tags: ['Next.js', 'TypeScript', 'TailwindCSS', 'next-intl'],
-    link: 'https://github.com/wael-chatoui/soufiane-chatoui',
+    link: 'https://soufianechatoui.com',
   },
   {
     title: 'Flashscore Scraper',
