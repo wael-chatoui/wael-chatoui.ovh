@@ -35,8 +35,8 @@ export default function SectionStepper() {
           }
         },
         {
-          threshold: 0.4,
-          rootMargin: '-10% 0px -10% 0px',
+          threshold: 0.2,
+          rootMargin: '0px 0px -20% 0px',
         }
       );
 
@@ -44,7 +44,21 @@ export default function SectionStepper() {
       observers.push(observer);
     });
 
-    return () => observers.forEach((o) => o.disconnect());
+    // Fallback: activate last section when scrolled to bottom
+    const handleScroll = () => {
+      const scrollBottom = window.scrollY + window.innerHeight;
+      const pageHeight = document.documentElement.scrollHeight;
+      if (scrollBottom >= pageHeight - 50) {
+        setActiveSection(sections[sections.length - 1].id);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      observers.forEach((o) => o.disconnect());
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   const handleClick = (id: string) => {
