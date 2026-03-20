@@ -12,6 +12,12 @@ const publicProjects = [
     link: 'https://github.com/wael-chatoui/nikolife-rent',
   },
   {
+    title: 'Soufiane Chatoui',
+    description: 'Portfolio d\'un vidéaste et réalisateur. Présentation de ses services (mariages, événements, fashion) et de ses productions cinématographiques.',
+    tags: ['Next.js', 'TypeScript', 'TailwindCSS', 'next-intl'],
+    link: 'https://github.com/wael-chatoui/soufiane-chatoui',
+  },
+  {
     title: 'Flashscore Scraper',
     description: 'Scraper de données sportives en temps réel. Extraction et parsing de scores, statistiques et cotes depuis Flashscore avec pipeline de stockage automatisé.',
     tags: ['Python', 'Scraping', 'Data'],
