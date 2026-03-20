@@ -62,6 +62,12 @@ const privateProjects = [
     tags: ['Swift', 'SwiftUI', 'Supabase', 'AI'],
     year: 2026,
   },
+  {
+    title: 'Niko\' Life',
+    description: 'Site vitrine pour une agence de location de véhicules. Présentation de la flotte, tarifs et contact.',
+    tags: ['Next.js', 'TypeScript', 'TailwindCSS'],
+    year: 2025,
+  },
 ];
 
 function PrivateDialog({ onClose }: { onClose: () => void }) {
