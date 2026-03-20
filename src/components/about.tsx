@@ -57,7 +57,7 @@ export default function About() {
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400" />
               </span>
               <span className="text-text-subtle text-sm font-body">
-                Sup de Vinci Bordeaux — Bachelor 1
+                42 Paris - Common Core
               </span>
             </motion.div>
           </div>
