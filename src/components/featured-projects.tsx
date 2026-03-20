@@ -8,7 +8,7 @@ const projects = [
     title: 'wael-chatoui.ovh',
     description: 'Personal portfolio built with Next.js 15, TailwindCSS, and Framer Motion.',
     tags: ['Next.js', 'TailwindCSS', 'TypeScript'],
-    link: 'https://github.com/Fraawdrinn/wael-chatoui.ovh',
+    link: 'https://github.com/wael-chatoui/wael-chatoui.ovh',
   },
   {
     title: 'More coming soon',
@@ -76,7 +76,7 @@ export default function FeaturedProjects() {
           className="mt-12 text-center"
         >
           <a
-            href="https://github.com/Fraawdrinn"
+            href="https://github.com/wael-chatoui"
             target="_blank"
             rel="noopener noreferrer"
             className="cursor-pointer inline-flex items-center gap-2 text-text-muted hover:text-text text-sm font-body transition-colors no-underline"
