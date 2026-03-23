@@ -26,7 +26,7 @@ const projects = [
       'Portfolio d\'un réalisateur & vidéaste. Site vitrine multilingue avec présentation de services (mariages, événements, fashion) et productions.',
     tags: ['Next.js', 'TypeScript', 'TailwindCSS', 'next-intl'],
     link: 'https://soufianechatoui.com',
-    year: '2024',
+    year: '2026',
   },
   {
     title: 'Niko\' Life',
