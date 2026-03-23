@@ -41,7 +41,7 @@ const projects = [
     description:
       'Ce portfolio — design system custom, animations Framer Motion, i18n FR/EN, scroll snap, dark mode.',
     tags: ['Next.js 16', 'TypeScript', 'TailwindCSS', 'Framer Motion'],
-    link: 'https://wael-chatoui.ovh',
+    link: 'https://wael-chatoui.vercel.app',
     year: '2025',
   },
   {
@@ -112,7 +112,7 @@ export default function RippletidePage() {
               GitHub
             </a>
             <a
-              href="https://wael-chatoui.ovh"
+              href="https://wael-chatoui.vercel.app"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-5 py-2.5 border border-border text-text-muted text-sm font-medium rounded-full hover:text-text hover:border-text-subtle transition-all no-underline"
@@ -189,10 +189,10 @@ export default function RippletidePage() {
           className="border-t border-border/30 pt-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
         >
           <p className="text-text-subtle text-sm font-body">
-            wael-chatoui.ovh/rippletide
+            wael-chatoui.vercel.app/rippletide
           </p>
           <a
-            href="https://wael-chatoui.ovh"
+            href="https://wael-chatoui.vercel.app"
             className="text-text-subtle hover:text-text-muted text-sm font-body transition-colors no-underline"
           >
             ← Portfolio complet
