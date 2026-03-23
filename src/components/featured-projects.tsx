@@ -36,24 +36,6 @@ const publicProjects = [
     link: 'https://github.com/wael-chatoui/HackTheFork',
   },
   {
-    title: '42 - Minishell',
-    description: 'Reproduction d\'un shell Unix POSIX from scratch en C. Parsing de commandes, pipes, redirections, variables d\'environnement et built-ins complets.',
-    tags: ['C', 'Unix', 'Shell', '42'],
-    link: 'https://github.com/wael-chatoui/42-minishell',
-  },
-  {
-    title: '42 - Philosophers',
-    description: 'Problème des philosophes implementé en C. Gestion de la concurrence avec threads POSIX et mutex pour éviter deadlocks et race conditions.',
-    tags: ['C', 'Threads', 'Concurrency', '42'],
-    link: 'https://github.com/wael-chatoui/42-philo',
-  },
-  {
-    title: '42 - FdF',
-    description: 'Renderer 3D isométrique wireframe en C avec MiniLibX. Projection de heightmaps en fil de fer avec gestion des transformations.',
-    tags: ['C', 'Graphics', '3D', '42'],
-    link: 'https://github.com/wael-chatoui/42-FdF',
-  },
-  {
     title: 'Dodge Game 2D',
     description: 'Jeu 2D de type dodge développé en Python avec Pygame. Difficulté progressive, gestion des collisions et score persistant.',
     tags: ['Python', 'Pygame', 'Game Dev'],
@@ -64,6 +46,27 @@ const publicProjects = [
     description: 'Ce site - construit avec Next.js 15, TypeScript et TailwindCSS.',
     tags: ['Next.js', 'TypeScript', 'TailwindCSS'],
     link: 'https://github.com/wael-chatoui/wael-chatoui.ovh',
+  },
+];
+
+const ecoleProjects = [
+  {
+    title: '42 - Minishell',
+    description: 'Reproduction d\'un shell Unix POSIX from scratch en C. Parsing de commandes, pipes, redirections, variables d\'environnement et built-ins complets.',
+    tags: ['C', 'Unix', 'Shell'],
+    link: 'https://github.com/wael-chatoui/42-minishell',
+  },
+  {
+    title: '42 - Philosophers',
+    description: 'Problème des philosophes implementé en C. Gestion de la concurrence avec threads POSIX et mutex pour éviter deadlocks et race conditions.',
+    tags: ['C', 'Threads', 'Concurrency'],
+    link: 'https://github.com/wael-chatoui/42-philo',
+  },
+  {
+    title: '42 - FdF',
+    description: 'Renderer 3D isométrique wireframe en C avec MiniLibX. Projection de heightmaps en fil de fer avec gestion des transformations.',
+    tags: ['C', 'Graphics', '3D'],
+    link: 'https://github.com/wael-chatoui/42-FdF',
   },
 ];
 
@@ -82,6 +85,66 @@ const privateProjects = [
     year: 2026,
   },
 ];
+
+function EcoleDialog({ onClose }: { onClose: () => void }) {
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      onClick={onClose}
+    >
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+      <motion.div
+        initial={{ opacity: 0, scale: 0.96, y: 8 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ duration: 0.2 }}
+        className="relative z-10 w-full max-w-lg bg-bg-surface border border-border/50 rounded-2xl p-8"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="flex items-start justify-between mb-6">
+          <div>
+            <p className="text-text-subtle text-xs tracking-[0.2em] uppercase font-body mb-1">42 Paris</p>
+            <h3 className="font-display text-2xl font-bold text-text">Projets d'école</h3>
+            <p className="text-text-muted text-sm font-body mt-1">Projets réalisés à 42 Paris en C.</p>
+          </div>
+          <button
+            onClick={onClose}
+            className="text-text-subtle hover:text-text transition-colors p-1"
+          >
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        <div className="space-y-5">
+          {ecoleProjects.map((project) => (
+            <div key={project.title} className="border-l-2 border-border pl-4">
+              <div className="flex items-center gap-2 mb-1 flex-wrap">
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-display font-semibold text-text hover:text-text-muted transition-colors"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {project.title}
+                </a>
+              </div>
+              <p className="text-text-muted text-sm font-body leading-relaxed mb-3">{project.description}</p>
+              <div className="flex flex-wrap gap-1.5">
+                {project.tags.map((tag) => (
+                  <span key={tag} className="text-xs font-body text-text-subtle px-2.5 py-0.5 rounded-full border border-border/50">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </motion.div>
+    </div>
+  );
+}
 
 function PrivateDialog({ onClose }: { onClose: () => void }) {
   return (
@@ -150,6 +213,7 @@ function PrivateDialog({ onClose }: { onClose: () => void }) {
 export default function FeaturedProjects() {
   const t = useTranslations('projects');
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [ecoleDialogOpen, setEcoleDialogOpen] = useState(false);
 
   return (
     <>
@@ -191,6 +255,45 @@ export default function FeaturedProjects() {
                 </a>
               </motion.div>
             ))}
+
+            {/* 42 projects card */}
+            {ecoleProjects.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-80px' }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+              >
+                <button
+                  onClick={() => setEcoleDialogOpen(true)}
+                  className="cursor-pointer group block w-full text-left"
+                >
+                  <div className="h-full p-6 lg:p-8 rounded-2xl bg-bg-surface border border-border/50 transition-all duration-300 group-hover:border-border group-hover:bg-bg-elevated">
+                    <div className="flex items-start justify-between mb-4">
+                      <h3 className="font-display text-xl font-bold text-text">
+                        +{ecoleProjects.length} projets 42
+                      </h3>
+                      <svg
+                        className="w-5 h-5 text-text-subtle group-hover:text-text-muted transition-all duration-300 flex-shrink-0 mt-1"
+                        fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                      </svg>
+                    </div>
+                    <p className="text-text-muted text-sm font-body mb-6 leading-relaxed">
+                      Projets réalisés à 42 Paris. Algorithmie, systèmes, graphique — en C.
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {['C', 'Unix', 'Algorithmie'].map((tag) => (
+                        <span key={tag} className="text-xs font-body text-text-subtle px-3 py-1 rounded-full border border-border/50">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </button>
+              </motion.div>
+            )}
 
             {/* Private projects card */}
             {privateProjects.length > 0 && (
@@ -253,6 +356,7 @@ export default function FeaturedProjects() {
       </section>
 
       {dialogOpen && <PrivateDialog onClose={() => setDialogOpen(false)} />}
+      {ecoleDialogOpen && <EcoleDialog onClose={() => setEcoleDialogOpen(false)} />}
     </>
   );
 }
