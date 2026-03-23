@@ -15,8 +15,8 @@ const projects = [
   {
     title: 'Glint',
     description:
-      'App iOS de crowdsourcing de données visuelles pour entreprises. Pipeline de collecte, validation et sanitisation d\'images par IA — Swift/SwiftUI + Supabase backend.',
-    tags: ['Swift', 'SwiftUI', 'Supabase', 'TypeScript', 'AI'],
+      'Site web de crowdsourcing de données visuelles pour entreprises. Pipeline de collecte, validation et sanitisation d\'images par IA — Next.js + Supabase backend.',
+    tags: ['Next.js', 'Supabase', 'TypeScript', 'AI'],
     link: null,
     year: '2026',
   },
@@ -57,7 +57,7 @@ const projects = [
 const stack = [
   'Next.js', 'React', 'TypeScript', 'TailwindCSS',
   'Supabase', 'PostgreSQL', 'Node.js', 'Python',
-  'Playwright', 'Framer Motion', 'Swift / SwiftUI',
+  'Playwright', 'Framer Motion',
 ];
 
 export default function RippletidePage() {
