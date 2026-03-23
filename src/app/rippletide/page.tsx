@@ -9,6 +9,7 @@ const projects = [
       'Plateforme SaaS connectant des experts à leurs clients via IA. Chats personnalisés, réponses 24/7, backoffice de gestion des connaissances.',
     tags: ['Next.js', 'Supabase', 'TypeScript', 'AI', 'SaaS'],
     link: 'https://miria.ai',
+    github: null,
     isDemo: true,
     year: '2025',
   },
@@ -18,6 +19,7 @@ const projects = [
       'Site web de crowdsourcing de données visuelles pour entreprises. Pipeline de collecte, validation et sanitisation d\'images par IA — Next.js + Supabase backend.',
     tags: ['Next.js', 'Supabase', 'TypeScript', 'AI'],
     link: null,
+    github: null,
     year: '2026',
   },
   {
@@ -26,6 +28,7 @@ const projects = [
       'Portfolio d\'un réalisateur & vidéaste. Site vitrine multilingue avec présentation de services (mariages, événements, fashion) et productions.',
     tags: ['Next.js', 'TypeScript', 'TailwindCSS', 'next-intl'],
     link: 'https://soufianechatoui.com',
+    github: 'https://github.com/wael-chatoui/soufiane-chatoui',
     year: '2026',
   },
   {
@@ -34,6 +37,7 @@ const projects = [
       'Site vitrine pour une agence de location de véhicules. Présentation de la flotte, tarifs et formulaire de contact.',
     tags: ['Next.js', 'TypeScript', 'TailwindCSS'],
     link: 'https://github.com/wael-chatoui/nikolife-rent',
+    github: null,
     year: '2024',
   },
   {
@@ -42,6 +46,7 @@ const projects = [
       'Ce portfolio — design system custom, animations Framer Motion, i18n FR/EN, scroll snap, dark mode.',
     tags: ['Next.js 16', 'TypeScript', 'TailwindCSS', 'Framer Motion'],
     link: 'https://wael-chatoui.vercel.app',
+    github: 'https://github.com/wael-chatoui/wael-chatoui.ovh',
     year: '2025',
   },
   {
@@ -50,6 +55,7 @@ const projects = [
       'Pipeline de scraping de données sportives en temps réel — scores, stats, cotes. Extraction, parsing et stockage automatisés.',
     tags: ['Python', 'Playwright', 'Data Pipeline'],
     link: 'https://github.com/wael-chatoui/flashscore-scraper',
+    github: null,
     year: '2024',
   },
 ];
@@ -140,20 +146,7 @@ export default function RippletidePage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.35 + i * 0.08, duration: 0.5 }}
               >
-                {project.link ? (
-                  <a
-                    href={project.link}
-                    target={project.link.startsWith('http') ? '_blank' : undefined}
-                    rel="noopener noreferrer"
-                    className="group block no-underline"
-                  >
-                    <ProjectCard project={project} />
-                  </a>
-                ) : (
-                  <div className="group block">
-                    <ProjectCard project={project} />
-                  </div>
-                )}
+                <ProjectCard project={project} />
               </motion.div>
             ))}
           </div>
@@ -206,12 +199,10 @@ export default function RippletidePage() {
 
 function ProjectCard({ project }: { project: typeof projects[number] }) {
   return (
-    <div className="p-6 rounded-2xl bg-bg-surface border border-border/50 transition-all duration-300 group-hover:border-border group-hover:bg-bg-elevated">
+    <div className="p-6 rounded-2xl bg-bg-surface border border-border/50 transition-all duration-300 hover:border-border hover:bg-bg-elevated">
       <div className="flex items-start justify-between gap-4 mb-3">
         <div className="flex items-center gap-3 flex-wrap">
-          <h3 className="font-display text-lg font-bold text-text">
-            {project.title}
-          </h3>
+          <h3 className="font-display text-lg font-bold text-text">{project.title}</h3>
           <span className="text-text-subtle text-xs font-body">{project.year}</span>
           {project.isDemo && (
             <span className="text-xs font-body text-text-subtle px-2.5 py-0.5 rounded-full bg-white/5 border border-border/50">
@@ -219,30 +210,46 @@ function ProjectCard({ project }: { project: typeof projects[number] }) {
             </span>
           )}
         </div>
-        {project.link && (
-          <svg
-            className="w-4 h-4 text-text-subtle group-hover:text-text-muted transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 flex-shrink-0 mt-1"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 17L17 7M17 7H7M17 7v10" />
-          </svg>
-        )}
       </div>
-      <p className="text-text-muted text-sm font-body leading-relaxed mb-4">
-        {project.description}
-      </p>
-      <div className="flex flex-wrap gap-1.5">
+      <p className="text-text-muted text-sm font-body leading-relaxed mb-4">{project.description}</p>
+      <div className="flex flex-wrap gap-1.5 mb-4">
         {project.tags.map((tag) => (
-          <span
-            key={tag}
-            className="text-xs font-body text-text-subtle px-2.5 py-0.5 rounded-full border border-border/50"
-          >
+          <span key={tag} className="text-xs font-body text-text-subtle px-2.5 py-0.5 rounded-full border border-border/50">
             {tag}
           </span>
         ))}
       </div>
+      {(project.link || project.github) && (
+        <div className="flex gap-2 flex-wrap">
+          {project.link && !project.github && (
+            <a href={project.link} target="_blank" rel="noopener noreferrer"
+              className="no-underline inline-flex items-center gap-1.5 text-xs font-body text-text-muted hover:text-text transition-colors border border-border/50 hover:border-border px-3 py-1.5 rounded-lg">
+              <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+              </svg>
+              GitHub
+            </a>
+          )}
+          {project.link && project.github && (
+            <a href={project.link} target="_blank" rel="noopener noreferrer"
+              className="no-underline inline-flex items-center gap-1.5 text-xs font-body text-text-muted hover:text-text transition-colors border border-border/50 hover:border-border px-3 py-1.5 rounded-lg">
+              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 17L17 7M17 7H7M17 7v10" />
+              </svg>
+              Voir le site
+            </a>
+          )}
+          {project.github && (
+            <a href={project.github} target="_blank" rel="noopener noreferrer"
+              className="no-underline inline-flex items-center gap-1.5 text-xs font-body text-text-muted hover:text-text transition-colors border border-border/50 hover:border-border px-3 py-1.5 rounded-lg">
+              <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+              </svg>
+              GitHub
+            </a>
+          )}
+        </div>
+      )}
     </div>
   );
 }
