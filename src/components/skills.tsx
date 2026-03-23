@@ -18,6 +18,7 @@ const skills = [
   { name: 'CSS3', icon: 'css3' },
   { name: 'C', icon: 'c' },
   { name: 'Bash', icon: 'bash' },
+  { name: 'Claude Code', icon: null, url: 'https://upload.wikimedia.org/wikipedia/commons/8/8a/Claude_AI_logo.svg' },
 ];
 
 function getDevIconUrl(icon: string): string {
@@ -79,7 +80,7 @@ export default function Skills() {
               <div className="w-16 h-16 lg:w-20 lg:h-20 rounded-2xl bg-bg-elevated border border-border/50 flex items-center justify-center transition-all duration-300 group-hover:border-border group-hover:bg-bg-surface group-hover:scale-105">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={getDevIconUrl(skill.icon)}
+                  src={skill.url ?? getDevIconUrl(skill.icon!)}
                   alt={skill.name}
                   className="w-8 h-8 lg:w-10 lg:h-10 opacity-70 group-hover:opacity-100 transition-opacity duration-300"
                   style={{ filter: 'grayscale(100%) brightness(2)' }}
