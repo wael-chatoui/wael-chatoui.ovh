@@ -91,9 +91,7 @@ export default function RippletidePage() {
             <span className="block">Pour</span>
             <span className="block text-text-muted">Rippletide</span>
           </h1>
-          <p className="text-text-muted text-lg max-w-xl leading-relaxed">
-            Dev fullstack, étudiant à 42 Paris. Je construis des interfaces rapides, des pipelines solides, et des produits qui tiennent la route.
-          </p>
+
 
           <div className="flex flex-wrap gap-3 mt-8">
             <a
