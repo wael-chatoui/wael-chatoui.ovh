@@ -18,7 +18,7 @@ const skills = [
   { name: 'CSS3', icon: 'css3' },
   { name: 'C', icon: 'c' },
   { name: 'Bash', icon: 'bash' },
-  { name: 'Claude Code', icon: null, url: 'https://cdn.simpleicons.org/anthropic/ffffff' },
+  { name: 'Claude Code', icon: null, url: 'https://cdn.simpleicons.org/claude/ffffff' },
 ];
 
 function getDevIconUrl(icon: string): string {
