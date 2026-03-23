@@ -327,120 +327,81 @@ export default function FeaturedProjects() {
               </motion.div>
             ))}
 
-            {/* Hackathon projects card */}
-            {hackathonProjects.length > 0 && (
-              <motion.div
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-80px' }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-              >
-                <button
-                  onClick={() => setHackathonDialogOpen(true)}
-                  className="cursor-pointer group block w-full text-left"
-                >
-                  <div className="h-full p-6 lg:p-8 rounded-2xl bg-bg-surface border border-border/50 transition-all duration-300 group-hover:border-border group-hover:bg-bg-elevated">
-                    <div className="flex items-start justify-between mb-4">
-                      <h3 className="font-display text-xl font-bold text-text">
-                        +{hackathonProjects.length} hackathons
-                      </h3>
-                      <svg
-                        className="w-5 h-5 text-text-subtle group-hover:text-text-muted transition-all duration-300 flex-shrink-0 mt-1"
-                        fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                      </svg>
-                    </div>
-                    <p className="text-text-muted text-sm font-body mb-6 leading-relaxed">
-                      Projets construits sous pression, en équipe, 24h chrono.
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {['Compétition', 'Équipe', 'Full-stack'].map((tag) => (
-                        <span key={tag} className="text-xs font-body text-text-subtle px-3 py-1 rounded-full border border-border/50">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </button>
-              </motion.div>
-            )}
+          </div>
 
-            {/* 42 projects card */}
-            {ecoleProjects.length > 0 && (
-              <motion.div
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-80px' }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-              >
-                <button
-                  onClick={() => setEcoleDialogOpen(true)}
-                  className="cursor-pointer group block w-full text-left"
-                >
-                  <div className="h-full p-6 lg:p-8 rounded-2xl bg-bg-surface border border-border/50 transition-all duration-300 group-hover:border-border group-hover:bg-bg-elevated">
-                    <div className="flex items-start justify-between mb-4">
-                      <h3 className="font-display text-xl font-bold text-text">
-                        +{ecoleProjects.length} projets 42
-                      </h3>
-                      <svg
-                        className="w-5 h-5 text-text-subtle group-hover:text-text-muted transition-all duration-300 flex-shrink-0 mt-1"
-                        fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                      </svg>
-                    </div>
-                    <p className="text-text-muted text-sm font-body mb-6 leading-relaxed">
-                      Projets réalisés à 42 Paris. Algorithmie, systèmes, graphique — en C.
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {['C', 'Unix', 'Algorithmie'].map((tag) => (
-                        <span key={tag} className="text-xs font-body text-text-subtle px-3 py-1 rounded-full border border-border/50">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </button>
-              </motion.div>
-            )}
+          {/* Separator + secondary dialog cards */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="mt-10 mb-6 flex items-center gap-4"
+          >
+            <div className="flex-1 h-px bg-border/30" />
+            <span className="text-text-subtle text-xs tracking-[0.2em] uppercase font-body">Voir aussi</span>
+            <div className="flex-1 h-px bg-border/30" />
+          </motion.div>
 
-            {/* Private projects card */}
-            {privateProjects.length > 0 && (
-              <motion.div
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-80px' }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-              >
-                <button
-                  onClick={() => setDialogOpen(true)}
-                  className="cursor-pointer group block w-full text-left"
-                >
-                  <div className="h-full p-6 lg:p-8 rounded-2xl bg-bg-surface border border-border/50 transition-all duration-300 group-hover:border-border group-hover:bg-bg-elevated">
-                    <div className="flex items-start justify-between mb-4">
-                      <h3 className="font-display text-xl font-bold text-text">
-                        +{privateProjects.length} projet{privateProjects.length > 1 ? 's' : ''} privé{privateProjects.length > 1 ? 's' : ''}
-                      </h3>
-                      <svg
-                        className="w-5 h-5 text-text-subtle group-hover:text-text-muted transition-all duration-300 flex-shrink-0 mt-1"
-                        fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                      </svg>
-                    </div>
-                    <p className="text-text-muted text-sm font-body mb-6 leading-relaxed">
-                      Projets en cours ou code propriétaire. Cliquez pour voir les détails disponibles.
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      <span className="text-xs font-body text-text-subtle px-3 py-1 rounded-full border border-border/50">
-                        Sur demande
-                      </span>
-                    </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* Hackathon card */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: 0.1 }}
+            >
+              <button onClick={() => setHackathonDialogOpen(true)} className="cursor-pointer group block w-full text-left">
+                <div className="h-full p-5 rounded-xl bg-bg-surface/60 border border-border/30 transition-all duration-300 group-hover:border-border/60 group-hover:bg-bg-surface">
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="font-display text-base font-semibold text-text-muted group-hover:text-text transition-colors">Hackathons</h3>
+                    <svg className="w-4 h-4 text-text-subtle" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
                   </div>
-                </button>
-              </motion.div>
-            )}
+                  <p className="text-text-subtle text-xs font-body">{hackathonProjects.length} projets · compétition</p>
+                </div>
+              </button>
+            </motion.div>
+
+            {/* 42 card */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: 0.2 }}
+            >
+              <button onClick={() => setEcoleDialogOpen(true)} className="cursor-pointer group block w-full text-left">
+                <div className="h-full p-5 rounded-xl bg-bg-surface/60 border border-border/30 transition-all duration-300 group-hover:border-border/60 group-hover:bg-bg-surface">
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="font-display text-base font-semibold text-text-muted group-hover:text-text transition-colors">42 Paris</h3>
+                    <svg className="w-4 h-4 text-text-subtle" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                  </div>
+                  <p className="text-text-subtle text-xs font-body">{ecoleProjects.length} projets · C / systèmes</p>
+                </div>
+              </button>
+            </motion.div>
+
+            {/* Private card */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: 0.3 }}
+            >
+              <button onClick={() => setDialogOpen(true)} className="cursor-pointer group block w-full text-left">
+                <div className="h-full p-5 rounded-xl bg-bg-surface/60 border border-border/30 transition-all duration-300 group-hover:border-border/60 group-hover:bg-bg-surface">
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="font-display text-base font-semibold text-text-muted group-hover:text-text transition-colors">Projets privés</h3>
+                    <svg className="w-4 h-4 text-text-subtle" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                    </svg>
+                  </div>
+                  <p className="text-text-subtle text-xs font-body">{privateProjects.length} projets · sur demande</p>
+                </div>
+              </button>
+            </motion.div>
           </div>
 
           <motion.div
