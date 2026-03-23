@@ -18,7 +18,7 @@ const skills = [
   { name: 'CSS3', icon: 'css3' },
   { name: 'C', icon: 'c' },
   { name: 'Bash', icon: 'bash' },
-  { name: 'Claude Code', icon: null, url: 'https://upload.wikimedia.org/wikipedia/commons/8/8a/Claude_AI_logo.svg' },
+  { name: 'Claude Code', icon: null, url: 'https://cdn.simpleicons.org/anthropic/ffffff' },
 ];
 
 function getDevIconUrl(icon: string): string {
@@ -83,12 +83,12 @@ export default function Skills() {
                   src={skill.url ?? getDevIconUrl(skill.icon!)}
                   alt={skill.name}
                   className="w-8 h-8 lg:w-10 lg:h-10 opacity-70 group-hover:opacity-100 transition-opacity duration-300"
-                  style={{ filter: 'grayscale(100%) brightness(2)' }}
+                  style={{ filter: skill.url ? 'none' : 'grayscale(100%) brightness(2)' }}
                   onMouseEnter={(e) => {
-                    (e.target as HTMLImageElement).style.filter = 'none';
+                    if (!skill.url) (e.target as HTMLImageElement).style.filter = 'none';
                   }}
                   onMouseLeave={(e) => {
-                    (e.target as HTMLImageElement).style.filter = 'grayscale(100%) brightness(2)';
+                    if (!skill.url) (e.target as HTMLImageElement).style.filter = 'grayscale(100%) brightness(2)';
                   }}
                 />
               </div>
