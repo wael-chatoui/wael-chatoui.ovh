@@ -88,21 +88,6 @@ export default function SectionStepper() {
             className="relative group flex items-center py-3 cursor-pointer bg-transparent border-none outline-none"
             aria-label={`Go to ${section.label}`}
           >
-            {/* Label - appears on hover or when active */}
-            <motion.span
-              initial={false}
-              animate={{
-                opacity: isActive ? 1 : 0,
-                x: isActive ? 0 : -8,
-              }}
-              className="absolute right-full mr-4 text-xs font-body tracking-wider uppercase whitespace-nowrap text-text-muted group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 pointer-events-none"
-              style={{
-                opacity: isActive ? 1 : undefined,
-              }}
-            >
-              <span className="group-hover:opacity-100">{section.label}</span>
-            </motion.span>
-
             {/* Dot / indicator */}
             <div className="relative z-10">
               <motion.div
@@ -126,16 +111,16 @@ export default function SectionStepper() {
               )}
             </div>
 
-            {/* Section number */}
+            {/* Label - appears to the right on hover or when active */}
             <motion.span
               initial={false}
               animate={{
-                opacity: isActive ? 0.6 : 0,
+                opacity: isActive ? 1 : 0,
                 x: isActive ? 0 : 8,
               }}
-              className="absolute left-full ml-4 text-[10px] font-body text-text-subtle tabular-nums pointer-events-none"
+              className="absolute left-full ml-4 text-xs font-body tracking-wider uppercase whitespace-nowrap text-text-muted group-hover:opacity-100 transition-all duration-300 pointer-events-none"
             >
-              {String(i + 1).padStart(2, '0')}
+              {section.label}
             </motion.span>
           </button>
         );
